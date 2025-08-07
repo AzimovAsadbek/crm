@@ -253,7 +253,15 @@ const sidebar = [
             },
         ],
     },
-
+    {
+        id: 9,
+        title: "Login",
+        path: "/login",
+        isPrivate: true,
+        element: Generics,
+        role: ["admin", "manager"],
+        hiddin: true
+    },
 ];
 
 export default sidebar;

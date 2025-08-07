@@ -98,7 +98,7 @@ const MenuInfo = styled(NavLink)`
 
     & path {
             fill: ${({ $active }) => $active && "var(--activeColor)"};
-        }
+    }
 
     cursor: pointer;
     &:hover {

@@ -22,8 +22,8 @@ const Sidebar = () => {
 
     const onOpen = ({ id, path, children }, e) => {
         if (open.includes(id)) {
-            localStorage.setItem("open", JSON.stringify(res))
             let res = open.filter(v => v !== id)
+            localStorage.setItem("open", JSON.stringify(res))
             setOpen(res)
         } else {
             localStorage.setItem("open", JSON.stringify([...open, id]))
@@ -35,6 +35,9 @@ const Sidebar = () => {
             navigate(path)
         }
 
+    }
+    const logOut = () => {
+        navigate("/login")
     }
     return (
         <Container>
@@ -62,7 +65,7 @@ const Sidebar = () => {
 
 
                             const Icon = parent?.icon
-                            return <div key={parent.id}>
+                            return !parent.hiddin && <div key={parent.id}>
                                 <MenuInfo onClick={(e) => onOpen(parent, e)} $active={activePath ? "true" : ""}>
                                     <MenuTitle>
                                         <Icon />
@@ -88,7 +91,7 @@ const Sidebar = () => {
                         })
                     }
                 </Menu>
-                <Exit>
+                <Exit onClick={logOut}>
                     <ExitIcon />
                     <div>Chiqish</div>
                 </Exit>
