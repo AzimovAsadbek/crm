@@ -7,6 +7,9 @@ const Container = styled.div`
   align-items: center;
   height: 60px;
   background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 `;
 
 const RightWrapper = styled.div`

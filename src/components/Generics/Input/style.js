@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import getValue from "../../../utils/getValue";
+import getValue from "../../../hooks/getValue";
 
 const Container = styled.div`
   display: flex;

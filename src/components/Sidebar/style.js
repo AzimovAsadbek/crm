@@ -19,6 +19,9 @@ const SidebarContainer = styled.div`
 `;
 
 const Body = styled.div`
+  overflow: hidden;
+  overflow-y: auto;
+  height: 100vh;
   flex: 1;
 `;
 
@@ -38,6 +41,7 @@ const Logo = styled.div`
   padding: 16px 24px;
   border-bottom: 1px solid #f8fafc;
   cursor: pointer;
+  z-index: 999;
 `;
 // Profile
 const Profile = styled.div`
