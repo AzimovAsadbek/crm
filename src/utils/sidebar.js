@@ -8,16 +8,10 @@ import Course from "../assets/icons/course.svg?react";
 import HR from "../assets/icons/hr.svg?react";
 import Settings from "../assets/icons/setting.svg?react";
 // Components
-// import { AnalitikaView } from "../view/AnalitikaView";
 
 import Generics from "../views/Generics";
-import AnalitikaView from "../views/analitikaView";
 import AllLidsView from "../views/Lids/allLids.jsx";
-// import LidsAllView from "../views/LidsAll";
-// import FirstClassView from "../views/FirstClass";
-// import NewStudentsView from "../views/NewStudents";
-// import GroupsView from "../views/GroupsView";
-// import GroupsRoomView from "../views/GroupsRoom";
+import AnalitikaView from "../views/AnalitikaView.jsx";
 
 
 const sidebar = [
