@@ -53,7 +53,7 @@ const Profile = styled.div`
     display: flex;
     align-items: center;
     gap: 16px;
-    margin: 20px 24px 0;
+    margin: 24px 24px 0;
     background-color: white;
 `;
 
@@ -90,7 +90,7 @@ const SubTitle = styled.div`
 
 // Menu
 const Menu = styled.div`
-    margin-top: 32px;
+    margin-top: 20px;
 `;
 
 const MenuInfo = styled(NavLink)`

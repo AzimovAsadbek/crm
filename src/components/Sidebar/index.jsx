@@ -24,7 +24,6 @@ import ExitIcon from "../../assets/icons/exit.svg?react";
 
 import sidebar from "../../utils/sidebar";
 import {useState} from "react";
-import Breadcrumb from "../Analitika/Breadcrumb/index.jsx";
 
 const Sidebar = () => {
     const [open, setOpen] = useState(
@@ -101,7 +100,7 @@ const Sidebar = () => {
                                                 <ChildWrapper
                                                     $active={open.includes(parent?.id) ? "true" : ""}
                                                     $activepath={
-                                                        location.pathname == child.path ? "true" : ""
+                                                        location.pathname === child.path ? "true" : ""
                                                     }
                                                 >
                                                     <ChildTitle>
@@ -124,7 +123,6 @@ const Sidebar = () => {
             <Body>
                 <Navbar/>
                 <Wrapper>
-                    <Breadcrumb/>
                     <Outlet/>
                 </Wrapper>
             </Body>
