@@ -5,11 +5,15 @@ import Breadcrumb from "../../Analitika/Breadcrumb/index.jsx";
 import GenericButton from "../../Generics/Button/index.jsx";
 import GenericSelect from "../../Generics/GenericSelect/GenericSelect.jsx";
 import * as React from "react";
-import GenericModal from "../../Generics/Modal/index.jsx";
 import AllLidsModal from "./modal.jsx";
 import Title from "../../Generics/Title/index.jsx";
+import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
+import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
+import {DatePicker} from "@mui/x-date-pickers/DatePicker";
+import moment from "moment";
 
-const AllLids = () => {
+
+const FirstClass = () => {
     const [open, setOpen] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [modalData, setModalData] = useState({});
@@ -31,13 +35,16 @@ const AllLids = () => {
             label: 'O’quvchining ismi',
         },
         {
-            id: 'group',
-            label: 'Guruh / Fan',
+            id: 'phone',
+            label: 'Telefon raqam',
         },
-        
         {
             id: 'addedDate',
             label: 'Qo’shilgan sana',
+        },
+        {
+            id: 'course',
+            label: 'Kurs',
         },
         {
             id: 'admin',
@@ -60,6 +67,8 @@ const AllLids = () => {
             group: "FrontEnd",
             addedDate: "12.08.2025",
             admin: "webbrain admin",
+            course: "FrontEnd",
+            phone: "+998 99 999 99 99"
         },
         {
             id: 2,
@@ -67,6 +76,9 @@ const AllLids = () => {
             group: "FrontEnd",
             addedDate: "14.08.2025",
             admin: "webbrain admin",
+            course: "FrontEnd",
+            phone: "+998 99 999 99 99"
+
         },
         {
             id: 3,
@@ -74,6 +86,9 @@ const AllLids = () => {
             group: "FrontEnd",
             addedDate: "14.08.2025",
             admin: "webbrain admin",
+            course: "BackEnd",
+            phone: "+998 99 999 99 99"
+
         },
         {
             id: 4,
@@ -81,6 +96,8 @@ const AllLids = () => {
             group: "FrontEnd",
             addedDate: "12.08.2025",
             admin: "webbrain admin",
+            course: "FrontEnd",
+            phone: "+998 99 999 99 99"
         }
     ]
 
@@ -101,22 +118,27 @@ const AllLids = () => {
         <Breadcrumb>
             <GenericButton type={"import"}>Import</GenericButton>
             <GenericButton type={"filter"} onClick={() => setOpen(!open)}>Filter</GenericButton>
-            <GenericButton type={"add"} onClick={() => setOpenModal(true)}>Buyurtma qoshish</GenericButton>
         </Breadcrumb>
         <GenericTable open={open} headCells={headCells} rows={rows}>
             <div style={{width: "200px"}}>
                 <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
-                       color={"var(--secondaryColor)"}>Statusi</Title>
+                       color={"var(--secondaryColor)"}>Sana</Title>
+                <LocalizationProvider dateAdapter={AdapterMoment} sx={{color: "red"}}>
+                    <DatePicker
+                        defaultValue={moment()}
+
+                        slotProps={{textField: {size: "small"}}}
+                    />
+                </LocalizationProvider>
+            </div>
+            <div style={{width: "200px"}}>
+                <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
+                       color={"var(--secondaryColor)"}>Kurs</Title>
                 <GenericSelect data={data}/>
             </div>
             <div style={{width: "200px"}}>
                 <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
-                       color={"var(--secondaryColor)"}>Guruh</Title>
-                <GenericSelect data={data}/>
-            </div>
-            <div style={{width: "200px"}}>
-                <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
-                       color={"var(--secondaryColor)"}>Kurslar</Title>
+                       color={"var(--secondaryColor)"}>Telefon raqam</Title>
                 <GenericSelect data={data}/>
             </div>
             <div style={{width: "200px"}}>
@@ -128,4 +150,4 @@ const AllLids = () => {
     </Container>;
 }
 
-export default AllLids;
+export default FirstClass;

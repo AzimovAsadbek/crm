@@ -30,7 +30,7 @@ const Conatiner = styled.div`
     padding: 24px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 `
 const Arrow = styled(arrow)`
 `

@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
+import GenericSelect from "../GenericSelect/GenericSelect.jsx";
 
 
 function EnhancedTableHead(props) {
@@ -30,7 +31,8 @@ function EnhancedTableHead(props) {
                     />
                 </TableCell>
                 {headCells.map((headCell) => (
-                    <TableCell key={headCell.id} sx={{cursor: "pointer", color: "#929FAF", fontSize: 16}}>
+                    <TableCell key={headCell.id}
+                               sx={{cursor: "pointer", color: "#929FAF", fontSize: 16, whiteSpace: "nowrap"}}>
                         {headCell.label}
                     </TableCell>
                 ))}
@@ -40,8 +42,8 @@ function EnhancedTableHead(props) {
 }
 
 
-export default function GenericTable({headCells, rows, open}) {
-
+export default function GenericTable(props) {
+    const {headCells, rows, open} = props;
     const [selected, setSelected] = React.useState([]);
 
 
@@ -80,7 +82,9 @@ export default function GenericTable({headCells, rows, open}) {
                 <Table>
                     <TableBody>
                         <TableRow>
-                            <TableCell sx={{border: 0}}>1</TableCell>
+                            <TableCell sx={{display: "flex", gap: 2, marginBottom: "10px", border: 0}}>
+                                {props?.children}
+                            </TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
@@ -125,9 +129,11 @@ export default function GenericTable({headCells, rows, open}) {
                                         {
                                             headCells?.map((headCell) => {
                                                 return <TableCell align="left" component="th" scope={'row'}
-                                                                  key={headCell?.id}>{row[headCell?.id]}</TableCell>
+                                                                  sx={{fontSize: 16}}
+                                                                  key={headCell?.id}>{headCell?.render ? headCell.render(row) : row[headCell?.id]}</TableCell>
                                             })
                                         }
+
                                     </TableRow>
                                 );
                             })}

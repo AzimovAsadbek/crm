@@ -5,11 +5,15 @@ import Breadcrumb from "../../Analitika/Breadcrumb/index.jsx";
 import GenericButton from "../../Generics/Button/index.jsx";
 import GenericSelect from "../../Generics/GenericSelect/GenericSelect.jsx";
 import * as React from "react";
-import GenericModal from "../../Generics/Modal/index.jsx";
 import AllLidsModal from "./modal.jsx";
 import Title from "../../Generics/Title/index.jsx";
+import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
+import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
+import {DatePicker} from "@mui/x-date-pickers/DatePicker";
+import moment from "moment";
 
-const AllLids = () => {
+
+const ArchiveStudents = () => {
     const [open, setOpen] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [modalData, setModalData] = useState({});
@@ -31,13 +35,42 @@ const AllLids = () => {
             label: 'O’quvchining ismi',
         },
         {
-            id: 'group',
-            label: 'Guruh / Fan',
+            id: 'status',
+            label: 'Status',
+            render: (row) => <span
+                style={{
+                    color: row?.status ? "#52C41A" : "#F5222D",
+                    fontWeight: 600
+                }}>{row?.status ? "Tugallangan" : "Tugallanmagan"}</span>,
         },
-        
+        {
+            id: 'phone',
+            label: 'Telefon raqam',
+        },
+        {
+            id: 'balance',
+            label: 'Balans',
+            render: (row) => <span
+                style={{
+                    padding: "4px 12px",
+                    borderRadius: "12px",
+                    backgroundColor: row?.balance?.includes("-") ? "#F5222D" : "#52C41A",
+                    color: "white",
+                    fontSize: "16px",
+                    whiteSpace: "nowrap",
+                }}>{row?.balance}</span>
+        },
+        {
+            id: 'parents',
+            label: 'Ota-onasi',
+        },
         {
             id: 'addedDate',
             label: 'Qo’shilgan sana',
+        },
+        {
+            id: 'course',
+            label: 'Kurs',
         },
         {
             id: 'admin',
@@ -48,7 +81,6 @@ const AllLids = () => {
             label: "",
             render: (row) => <Icons>
                 <Icons.Edit onClick={(e) => onEdit(e, row)}/>
-                <Icons.Move onClick={onMove}/>
             </Icons>
         }
     ];
@@ -60,6 +92,11 @@ const AllLids = () => {
             group: "FrontEnd",
             addedDate: "12.08.2025",
             admin: "webbrain admin",
+            course: "FrontEnd",
+            phone: "+998 99 999 99 99",
+            balance: "0",
+            parents: "Eshmatov Toshmat",
+            status: true,
         },
         {
             id: 2,
@@ -67,6 +104,12 @@ const AllLids = () => {
             group: "FrontEnd",
             addedDate: "14.08.2025",
             admin: "webbrain admin",
+            course: "FrontEnd",
+            phone: "+998 99 999 99 99",
+            balance: "-400 000",
+            parents: "Eshmatov Toshmat",
+            status: true,
+
         },
         {
             id: 3,
@@ -74,6 +117,12 @@ const AllLids = () => {
             group: "FrontEnd",
             addedDate: "14.08.2025",
             admin: "webbrain admin",
+            course: "BackEnd",
+            phone: "+998 99 999 99 99",
+            balance: "0",
+            parents: "Eshmatov Toshmat",
+            status: true,
+
         },
         {
             id: 4,
@@ -81,6 +130,13 @@ const AllLids = () => {
             group: "FrontEnd",
             addedDate: "12.08.2025",
             admin: "webbrain admin",
+            course: "FrontEnd",
+            phone: "+998 99 999 99 99",
+            balance: "400 000",
+            parents: "Eshmatov Toshmat",
+            status: true,
+
+
         }
     ]
 
@@ -102,21 +158,33 @@ const AllLids = () => {
             <GenericButton type={"import"}>Import</GenericButton>
             <GenericButton type={"filter"} onClick={() => setOpen(!open)}>Filter</GenericButton>
             <GenericButton type={"add"} onClick={() => setOpenModal(true)}>Buyurtma qoshish</GenericButton>
+
         </Breadcrumb>
         <GenericTable open={open} headCells={headCells} rows={rows}>
             <div style={{width: "200px"}}>
                 <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
-                       color={"var(--secondaryColor)"}>Statusi</Title>
+                       color={"var(--secondaryColor)"}>Sana</Title>
+                <LocalizationProvider dateAdapter={AdapterMoment} sx={{color: "red"}}>
+                    <DatePicker
+                        defaultValue={moment()}
+
+                        slotProps={{textField: {size: "small"}}}
+                    />
+                </LocalizationProvider>
+            </div>
+            <div style={{width: "200px"}}>
+                <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
+                       color={"var(--secondaryColor)"}>Balans</Title>
                 <GenericSelect data={data}/>
             </div>
             <div style={{width: "200px"}}>
                 <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
-                       color={"var(--secondaryColor)"}>Guruh</Title>
+                       color={"var(--secondaryColor)"}>Kurs</Title>
                 <GenericSelect data={data}/>
             </div>
             <div style={{width: "200px"}}>
                 <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
-                       color={"var(--secondaryColor)"}>Kurslar</Title>
+                       color={"var(--secondaryColor)"}>Telefon raqam</Title>
                 <GenericSelect data={data}/>
             </div>
             <div style={{width: "200px"}}>
@@ -128,4 +196,4 @@ const AllLids = () => {
     </Container>;
 }
 
-export default AllLids;
+export default ArchiveStudents;

@@ -17,6 +17,7 @@ const Button = styled.button`
     line-height: 20px;
     cursor: pointer;
     color: var(--primaryColor);
+    white-space: nowrap;
 
     &:active {
         opacity: 0.8;

@@ -12,6 +12,11 @@ import Settings from "../assets/icons/setting.svg?react";
 import Generics from "../views/Generics";
 import AllLidsView from "../views/Lids/allLids.jsx";
 import AnalitikaView from "../views/AnalitikaView.jsx";
+import FirstClassView from "../views/Lids/FirstClassView.jsx";
+import NewStudentView from "../views/Lids/NewStudentView.jsx";
+import AllStudentsView from "../views/Students/all.jsx";
+import ActiveStudents from "../components/Students/Active/index.jsx";
+import ArchiveStudentsView from "../views/Students/archive.jsx";
 
 
 const sidebar = [
@@ -46,7 +51,7 @@ const sidebar = [
                 title: "Birinchi Darsga yozilish",
                 path: "/lidlar/first-class",
                 isPrivate: true,
-                element: Generics,
+                element: FirstClassView,
                 role: ["admin", "manager"],
             },
             {
@@ -54,7 +59,7 @@ const sidebar = [
                 title: "Yangi Talabalar ro`yhati",
                 path: "/lidlar/new-students",
                 isPrivate: true,
-                element: Generics,
+                element: NewStudentView,
                 role: ["admin", "manager"],
             },
         ],
@@ -67,6 +72,7 @@ const sidebar = [
         icon: Finance,
         element: Generics,
         role: ["admin"],
+        hiddin: true
     },
     {
         id: 4,
@@ -82,23 +88,23 @@ const sidebar = [
                 title: "Barcha talabalar",
                 path: "/talabalar/all-talabalar",
                 isPrivate: true,
-                element: Generics,
+                element: AllStudentsView,
                 role: ["admin", "manager"],
             },
-            {
-                id: `4-2`,
-                title: "Davomat",
-                path: "/talabalar/davomat",
-                isPrivate: true,
-                element: Generics,
-                role: ["admin", "manager"],
-            },
+            // {
+            //     id: `4-2`,
+            //     title: "Davomat",
+            //     path: "/talabalar/davomat",
+            //     isPrivate: true,
+            //     element: Generics,
+            //     role: ["admin", "manager"],
+            // },
             {
                 id: `4-3`,
                 title: "Aktive",
                 path: "/talabalar/active",
                 isPrivate: true,
-                element: Generics,
+                element: ActiveStudents,
                 role: ["admin", "manager"],
             },
             {
@@ -106,17 +112,17 @@ const sidebar = [
                 title: "Arxiv",
                 path: "/talabalar/archive",
                 isPrivate: true,
-                element: Generics,
+                element: ArchiveStudentsView,
                 role: ["admin", "manager"],
             },
-            {
-                id: `4-5`,
-                title: "Ota-onalar",
-                path: "/talabalar/parents",
-                isPrivate: true,
-                element: Generics,
-                role: ["admin", "manager"],
-            },
+            // {
+            //     id: `4-5`,
+            //     title: "Ota-onalar",
+            //     path: "/talabalar/parents",
+            //     isPrivate: true,
+            //     element: Generics,
+            //     role: ["admin", "manager"],
+            // },
         ],
     },
     {
