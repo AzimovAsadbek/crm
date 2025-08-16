@@ -13,7 +13,7 @@ import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import moment from "moment";
 
 
-const ArchiveStudents = () => {
+const Schedule = () => {
     const [open, setOpen] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [modalData, setModalData] = useState({});
@@ -54,7 +54,7 @@ const ArchiveStudents = () => {
                 style={{
                     padding: "4px 12px",
                     borderRadius: "12px",
-                    backgroundColor: row?.balance?.includes("-") ? "#F5222D" : "#52C41A",
+                    backgroundColor: row?.balance?.includes("-") ? "#52C41A" : "#F5222D",
                     color: "white",
                     fontSize: "16px",
                     whiteSpace: "nowrap",
@@ -81,6 +81,7 @@ const ArchiveStudents = () => {
             label: "",
             render: (row) => <Icons>
                 <Icons.Edit onClick={(e) => onEdit(e, row)}/>
+                <Icons.Move onClick={onMove}/>
             </Icons>
         }
     ];
@@ -96,7 +97,7 @@ const ArchiveStudents = () => {
             phone: "+998 99 999 99 99",
             balance: "0",
             parents: "Eshmatov Toshmat",
-            status: true,
+            status: false,
         },
         {
             id: 2,
@@ -108,6 +109,7 @@ const ArchiveStudents = () => {
             phone: "+998 99 999 99 99",
             balance: "-400 000",
             parents: "Eshmatov Toshmat",
+
             status: true,
 
         },
@@ -121,7 +123,7 @@ const ArchiveStudents = () => {
             phone: "+998 99 999 99 99",
             balance: "0",
             parents: "Eshmatov Toshmat",
-            status: true,
+            status: false,
 
         },
         {
@@ -157,6 +159,7 @@ const ArchiveStudents = () => {
         <Breadcrumb>
             <GenericButton type={"import"}>Import</GenericButton>
             <GenericButton type={"filter"} onClick={() => setOpen(!open)}>Filter</GenericButton>
+            <GenericButton type={"add"} onClick={() => setOpenModal(true)}>Buyurtma qoshish</GenericButton>
 
         </Breadcrumb>
         <GenericTable open={open} headCells={headCells} rows={rows}>
@@ -195,4 +198,4 @@ const ArchiveStudents = () => {
     </Container>;
 }
 
-export default ArchiveStudents;
+export default Schedule;

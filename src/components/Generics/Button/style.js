@@ -66,7 +66,7 @@ Button.Filter = styled(Button)`
     }
 `
 Button.Add = styled(Button)`
-    background-color: ${({bgcolor}) => bgcolor ? bgcolor : "var(--activeColor)"};
+    background-color: ${({$bgcolor}) => $bgcolor ? $bgcolor : "var(--activeColor)"};
     color: white;
 
     &:active {

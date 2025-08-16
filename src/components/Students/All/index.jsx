@@ -159,7 +159,8 @@ const AllStudents = () => {
         <Breadcrumb>
             <GenericButton type={"import"}>Import</GenericButton>
             <GenericButton type={"filter"} onClick={() => setOpen(!open)}>Filter</GenericButton>
-            <GenericButton type={"add"} onClick={() => setOpenModal(true)}>Buyurtma qoshish</GenericButton>
+            <GenericButton type={"add"} onClick={() => setOpenModal(true)} $bgcolor={"#722ED1"}>Buyurtma
+                qoshish</GenericButton>
 
         </Breadcrumb>
         <GenericTable open={open} headCells={headCells} rows={rows}>

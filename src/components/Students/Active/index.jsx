@@ -156,8 +156,8 @@ const ActiveStudents = () => {
         <AllLidsModal open={openModal} onClose={onToggleModal} onSave={onSave} data={modalData}/>
         <Breadcrumb>
             <GenericButton type={"import"}>Import</GenericButton>
-            <GenericButton type={"filter"} onClick={() => setOpen(!open)}>Filter</GenericButton>
-            <GenericButton type={"add"} onClick={() => setOpenModal(true)}>Buyurtma qoshish</GenericButton>
+            {/*<GenericButton type={"filter"} onClick={() => setOpen(!open)}>Filter</GenericButton>*/}
+            {/*<GenericButton type={"add"} onClick={() => setOpenModal(true)}>Buyurtma qoshish</GenericButton>*/}
 
         </Breadcrumb>
         <GenericTable open={open} headCells={headCells} rows={rows}>

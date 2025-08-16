@@ -14,8 +14,11 @@ import AllLidsView from "../views/Lids/allLids.jsx";
 import AnalitikaView from "../views/AnalitikaView.jsx";
 import FirstClassView from "../views/Lids/FirstClassView.jsx";
 import NewStudentView from "../views/Lids/NewStudentView.jsx";
+import GroupsView from "../views/Groups/groups.jsx";
+// import ScheduleView from "../views/Students/schedule.jsx";
+import RoomsView from "../views/Groups/rooms.jsx";
 import AllStudentsView from "../views/Students/all.jsx";
-import ActiveStudents from "../components/Students/Active/index.jsx";
+import ActiveStudentsView from "../views/Students/active.jsx";
 import ArchiveStudentsView from "../views/Students/archive.jsx";
 
 
@@ -104,7 +107,7 @@ const sidebar = [
                 title: "Aktive",
                 path: "/talabalar/active",
                 isPrivate: true,
-                element: ActiveStudents,
+                element: ActiveStudentsView,
                 role: ["admin", "manager"],
             },
             {
@@ -139,23 +142,23 @@ const sidebar = [
                 title: "Guruhlar",
                 path: "/guruhlar/guruhlar",
                 isPrivate: true,
-                element: Generics,
+                element: GroupsView,
                 role: ["admin", "manager"],
             },
-            {
-                id: `5-2`,
-                title: "Dars Jadvali",
-                path: "/guruhlar/jadval",
-                isPrivate: true,
-                element: Generics,
-                role: ["admin", "manager"],
-            },
+            // {
+            //     id: `5-2`,
+            //     title: "Dars Jadvali",
+            //     path: "/guruhlar/jadval",
+            //     isPrivate: true,
+            //     element: ScheduleView,
+            //     role: ["admin", "manager"],
+            // },
             {
                 id: `5-3`,
                 title: "Xonalar",
                 path: "/guruhlar/xonalar",
                 isPrivate: true,
-                element: Generics,
+                element: RoomsView,
                 role: ["admin", "manager"],
             },
         ],
@@ -269,3 +272,4 @@ const sidebar = [
 ];
 
 export default sidebar;
+
