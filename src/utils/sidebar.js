@@ -20,6 +20,8 @@ import RoomsView from "../views/Groups/rooms.jsx";
 import AllStudentsView from "../views/Students/all.jsx";
 import ActiveStudentsView from "../views/Students/active.jsx";
 import ArchiveStudentsView from "../views/Students/archive.jsx";
+import RolsView from "../views/Hr/rolsView.jsx";
+import HodimlarView from "../views/Hr/hodimlarView.jsx";
 
 
 const sidebar = [
@@ -204,7 +206,7 @@ const sidebar = [
                 title: "Ro'llar",
                 path: "/hr/role",
                 isPrivate: true,
-                element: Generics,
+                element: RolsView,
                 role: ["admin", "manager"],
             },
             {
@@ -212,7 +214,7 @@ const sidebar = [
                 title: "Hodimlar",
                 path: "/hr/hodimlar",
                 isPrivate: true,
-                element: Generics,
+                element: HodimlarView,
                 role: ["admin", "manager"],
             },
         ],

@@ -18,6 +18,12 @@ const Wrapper = styled.div`
     background-color: white;
     border-radius: 8px;
     padding: 32px 48px;
+    max-height: 844px;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 0;
+    }
 `
 const Footer = styled.div`
     display: flex;

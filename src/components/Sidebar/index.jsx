@@ -76,10 +76,9 @@ const Sidebar = () => {
                 <Menu>
                     {sidebar.map((parent) => {
                         const activePath = location.pathname.includes(parent.path);
-
                         const Icon = parent?.icon;
                         return (
-                            !parent.hiddin && (
+                            !parent?.hiddin && (
                                 <div key={parent.id}>
                                     <MenuInfo
                                         onClick={(e) => onOpen(parent, e)}

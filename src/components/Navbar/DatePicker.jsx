@@ -5,7 +5,6 @@ import moment from "moment";
 
 const ContainerDatePicker = () => {
     return (
-
         <LocalizationProvider dateAdapter={AdapterMoment} sx={{color: "red"}}>
             <DatePicker
                 label="Date"
