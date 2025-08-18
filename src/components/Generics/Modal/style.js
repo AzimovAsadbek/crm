@@ -7,18 +7,20 @@ const Container = styled.div`
     z-index: 9999;
     background-color: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(4px);
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
 const Wrapper = styled.div`
-    margin: 78px auto auto;
+    //margin: 38px auto auto;
     width: fit-content;
     max-width: 900px;
     min-width: 200px;
     background-color: white;
     border-radius: 8px;
     padding: 32px 48px;
-    max-height: 844px;
+    max-height: 90%;
     overflow: auto;
 
     &::-webkit-scrollbar {

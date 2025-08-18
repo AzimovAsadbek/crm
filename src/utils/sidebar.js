@@ -22,6 +22,8 @@ import ActiveStudentsView from "../views/Students/active.jsx";
 import ArchiveStudentsView from "../views/Students/archive.jsx";
 import RolsView from "../views/Hr/rolsView.jsx";
 import HodimlarView from "../views/Hr/hodimlarView.jsx";
+import AllCoursesView from "../views/Courses/allCourses.jsx";
+import CourseOrientationView from "../views/Courses/CourseOrientation.jsx";
 
 
 const sidebar = [
@@ -179,7 +181,7 @@ const sidebar = [
                 title: "Barcha Kurslar",
                 path: "/kurslar/all-kurslar",
                 isPrivate: true,
-                element: Generics,
+                element: AllCoursesView,
                 role: ["admin", "manager"],
             },
             {
@@ -187,7 +189,7 @@ const sidebar = [
                 title: "Yo'nalishlar",
                 path: "/kurslar/yonalish",
                 isPrivate: true,
-                element: Generics,
+                element: CourseOrientationView,
                 role: ["admin", "manager"],
             },
         ],

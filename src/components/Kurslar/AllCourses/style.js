@@ -8,6 +8,7 @@ const Container = styled.div``
 const Icons = styled.div`
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     gap: 6px;
 `
 

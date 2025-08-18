@@ -22,4 +22,34 @@ const students = [
     },
 ]
 
+export const groupStudents = [
+    {
+        id: 1,
+        fullname: "Qosimov Bekmirza",
+        birthday: "26-12-1998",
+        jinsi: "Erkak",
+        task: "Moderator",
+        filial: "Chilonzor",
+        phone: "+998 99 999 99 99",
+    },
+    {
+        id: 2,
+        fullname: "Sherali Jo’rayev",
+        birthday: "26-12-1998",
+        jinsi: "Erkak",
+        task: "O'qituvchi",
+        filial: "Ganga",
+        phone: "+998 99 999 99 99",
+    },
+    {
+        id: 3,
+        fullname: "Shermatov Gulmat",
+        birthday: "26-12-1991",
+        jinsi: "Erkak",
+        task: "O'qituvchi",
+        filial: "Ganga",
+        phone: "+998 99 999 99 99",
+    },
+]
+
 export default students

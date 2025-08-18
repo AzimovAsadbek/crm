@@ -21,5 +21,16 @@ Icons.Delete = styled(del)`
     height: 34px;
     padding: 6px;
 `
+const Wrapper = styled.div`
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+`
 
-export {Container, Icons}
+const Section = styled.div``
+
+const Item = styled.label`
+    display: flex;
+    align-items: center;
+
+`
+export {Container, Icons, Wrapper, Section, Item}
