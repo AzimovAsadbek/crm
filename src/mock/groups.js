@@ -9,10 +9,10 @@ const rows = [
                 id: 1,
                 title: "Frontend",
                 level: "Beginner",
-                started: false,
+                started: true,
                 location: "Chilonzor Toshkent, Uzbekistan",
                 filial: "Chilonzor",
-                timeline: "Dush - Chor - Jum",
+                timeline: "Dushanba - Chorshanba - Juma",
                 time: "14:00 - 16:00",
                 students: groupStudents
             },
@@ -23,7 +23,7 @@ const rows = [
                 started: false,
                 location: "Chilonzor Toshkent, Uzbekistan",
                 filial: "Chilonzor",
-                timeline: "Dush - Chor - Jum",
+                timeline: "Dushanba - Chorshanba - Juma",
                 time: "14:00 - 16:00",
                 students: groupStudents
             },
@@ -34,7 +34,7 @@ const rows = [
                 started: false,
                 location: "Chilonzor Toshkent, Uzbekistan",
                 filial: "Chilonzor",
-                timeline: "Dush - Chor - Jum",
+                timeline: "Dushanba - Chorshanba - Juma",
                 time: "15:00 - 17:00",
                 students: groupStudents
             }
@@ -50,29 +50,29 @@ const rows = [
                 started: false,
                 location: "Chilonzor Toshkent, Uzbekistan",
                 filial: "Chilonzor",
-                timeline: "Dush - Chor - Jum",
+                timeline: "Dushanba - Chorshanba - Juma",
                 time: "14:00 - 16:00",
                 students: groupStudents
             },
 
             {
-                id: 1,
+                id: 2,
                 level: "Matematika",
                 started: false,
                 location: "Chilonzor Toshkent, Uzbekistan",
                 filial: "Chilonzor",
-                timeline: "Dush - Chor - Jum",
+                timeline: "Dushanba - Chorshanba - Juma",
                 time: "14:00 - 16:00",
                 students: groupStudents
             },
 
             {
-                id: 1,
+                id: 3,
                 level: "Tarix",
                 started: false,
                 location: "Chilonzor Toshkent, Uzbekistan",
                 filial: "Chilonzor",
-                timeline: "Dush - Chor - Jum",
+                timeline: "Dushanba - Chorshanba - Juma",
                 time: "14:00 - 16:00",
                 students: groupStudents
             }
@@ -89,7 +89,7 @@ const rows = [
                 started: false,
                 location: "Chilonzor Toshkent, Uzbekistan",
                 filial: "Chilonzor",
-                timeline: "Dush - Chor - Jum",
+                timeline: "Dushanba - Chorshanba - Juma",
                 time: "14:00 - 16:00",
                 students: groupStudents
             },
@@ -100,18 +100,18 @@ const rows = [
                 started: false,
                 location: "Chilonzor Toshkent, Uzbekistan",
                 filial: "Chilonzor",
-                timeline: "Dush - Chor - Jum",
+                timeline: "Dushanba - Chorshanba - Juma",
                 time: "14:00 - 16:00",
                 students: groupStudents
             },
             {
-                id: 1,
+                id: 3,
                 level: "FPC",
                 title: "SMM",
                 started: false,
                 location: "Chilonzor Toshkent, Uzbekistan",
                 filial: "Chilonzor",
-                timeline: "Dush - Chor - Jum",
+                timeline: "Dushanba - Chorshanba - Juma",
                 time: "14:00 - 16:00",
                 students: groupStudents
             },

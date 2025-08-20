@@ -10,12 +10,14 @@ const Icons = styled.div`
     justify-content: flex-end;
     align-items: center;
     gap: 6px;
+    cursor: pointer;
 `
 
 Icons.Edit = styled(edit)`
     width: 34px;
     height: 34px;
     padding: 6px;
+    cursor: pointer;
 `
 Icons.Delete = styled(del)`
     width: 34px;

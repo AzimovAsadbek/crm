@@ -36,7 +36,8 @@ const AllCourses = () => {
             label: "",
             render: (row) => <Icons>
                 <Icons.Edit onClick={(e) => onEdit(e, row)}/>
-                <Icons.Delete onClick={(e) => onDelete(e, row)}/>
+                <Icons.Delete onClick={(e) => {
+                }}/>
             </Icons>
         }
     ];
