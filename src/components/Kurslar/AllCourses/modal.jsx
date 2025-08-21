@@ -1,12 +1,10 @@
 import GenericModal from "../../Generics/Modal/index.jsx";
 import Title from "../../Generics/Title/index.jsx";
 import GenericInput from "../../Generics/Input/index.jsx";
-import GenericSelect from "../../Generics/GenericSelect/GenericSelect.jsx";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
-import moment from "moment";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
-import {Section, SelectWrapper, Wrap} from "./style.js";
+import {ModalInput, Section, SelectWrapper, Wrap} from "./style.js";
 import Checkbox from "@mui/material/Checkbox";
 
 const AllLidsModal = (props) => {
@@ -25,72 +23,64 @@ const AllLidsModal = (props) => {
     ]
     return (
         <GenericModal {...props}>
-            <Title type={"bold"} $font_size={18}>Hodim qo'shish</Title>
-            <Title $font_size={16} $line_height={24} $mb={8} color={"var(--secondaryColor)"} $mt={16}>Ismi</Title>
-            <GenericInput placeholder={"name"} $width={500} $fontSize={16} defaultValue={data?.name}/>
+            {/*<Title type={"bold"} $font_size={18}>Kurs qo'shish</Title>*/}
+            <Title $font_size={16} $line_height={24} $mb={8} color={"var(--secondaryColor)"} $mt={16}>Kursning
+                yo'nalishi</Title>
+            <GenericInput $width={500} $fontSize={16} defaultValue={data?.name}/>
 
-            <Title $font_size={16} $line_height={24} $mb={8} color={"var(--secondaryColor)"} $mt={16}>Familiya</Title>
-            <GenericInput placeholder={"surname"} $width={500} $fontSize={16} defaultValue={data?.name}/>
+            <Title $font_size={16} $line_height={24} $mb={8} color={"var(--secondaryColor)"} $mt={16}>Kursning
+                nomi</Title>
+            <GenericInput $width={500} $fontSize={16} defaultValue={data?.name}/>
 
-            <Title $font_size={16} $line_height={24} $mb={8} color={"var(--secondaryColor)"} $mt={16}>Telefon
-                raqami</Title>
-            <GenericInput placeholder={"phone number"} $width={500} $fontSize={16} defaultValue={data?.name}/>
 
-            <Title $font_size={16} $line_height={24} $mb={8} color={"var(--secondaryColor)"} $mt={16}>Jinsi</Title>
-            <GenericSelect/>
-
-            <Title $font_size={16} $line_height={24} $mb={8} color={"var(--secondaryColor)"} $mt={16}>Tug'ilgan
-                sana</Title>
-            <LocalizationProvider dateAdapter={AdapterMoment} sx={{color: "red"}}>
-                <DatePicker
-                    defaultValue={moment()}
-                    sx={{width: "100%"}}
-                    slotProps={{textField: {size: "small"}}}
-                />
-            </LocalizationProvider>
-
-            <Title $font_size={16} $line_height={24} $mb={8} color={"var(--secondaryColor)"} $mt={16}>Vazifasi</Title>
-            <GenericSelect/>
-            <Title $font_size={16} $line_height={24} $mb={8} color={"var(--secondaryColor)"} $mt={16}>Foiz</Title>
-            <GenericSelect/>
             <Section>
-                <div style={{flex: 1}}>
+                <SelectWrapper>
 
-                    <Title $font_size={16} $line_height={24} color={"var(--secondaryColor)"}
+                    <Title style={{flex: 1}} $font_size={16} $line_height={24} color={"var(--secondaryColor)"}
                     >Filiallar</Title>
+                    <Title style={{flex: 1}} $font_size={16} $line_height={24} color={"var(--secondaryColor)"}
+                    >Narxi</Title>
+                </SelectWrapper>
+                <SelectWrapper>
                     <Wrap>
                         <Checkbox/>
                         <Title $font_size={16} $line_height={24} color={"var(--primaryColor)"}
                         >Chilonzor</Title>
                     </Wrap>
-                    <Wrap>
-                        <Checkbox/>
-                        <Title $font_size={16} $line_height={24} color={"var(--primaryColor)"}
-                        >Namangan</Title>
-                    </Wrap>
-                    <Wrap>
-                        <Checkbox/>
-                        <Title $font_size={16} $line_height={24} color={"var(--primaryColor)"}
-                        >Kokcha</Title>
-                    </Wrap>
-                    <Wrap>
-                        <Checkbox/>
-                        <Title $font_size={16} $line_height={24} color={"var(--primaryColor)"}
-                        >Kokcha</Title>
-                    </Wrap>
-                </div>
-                <div style={{flex: 1}}>
-                    <Title $font_size={16} $line_height={24} $mb={8} color={"var(--secondaryColor)"}
-                    >Ro'llar</Title>
+                    {/*<ModalInput/>*/}
+                    <GenericInput $border_radius={"0 4px 4px 0"}/>
+                </SelectWrapper>
 
-                    <SelectWrapper>
-                        <GenericSelect value={data?.group} data={yonlaishlar}/>
-                        <GenericSelect value={data?.group} data={yonlaishlar}/>
-                        <GenericSelect value={data?.group} data={yonlaishlar}/>
-                        <GenericSelect value={data?.group} data={yonlaishlar}/>
-                    </SelectWrapper>
+                <SelectWrapper>
+                    <Wrap>
+                        <Checkbox/>
+                        <Title $font_size={16} $line_height={24} color={"var(--primaryColor)"}
+                        >Chilonzor</Title>
+                    </Wrap>
+                    {/*<ModalInput/>*/}
+                    <GenericInput $border_radius={"0 4px 4px 0"}/>
+                </SelectWrapper>
 
-                </div>
+                <SelectWrapper>
+                    <Wrap>
+                        <Checkbox/>
+                        <Title $font_size={16} $line_height={24} color={"var(--primaryColor)"}
+                        >Chilonzor</Title>
+                    </Wrap>
+                    {/*<ModalInput/>*/}
+                    <GenericInput $border_radius={"0 4px 4px 0"}/>
+                </SelectWrapper>
+
+                <SelectWrapper>
+                    <Wrap>
+                        <Checkbox/>
+                        <Title $font_size={16} $line_height={24} color={"var(--primaryColor)"}
+                        >Chilonzor</Title>
+                    </Wrap>
+                    {/*<ModalInput/>*/}
+                    <GenericInput $border_radius={"0 4px 4px 0"}/>
+                </SelectWrapper>
+
             </Section>
 
         </GenericModal>

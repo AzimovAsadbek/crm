@@ -11,6 +11,7 @@ import Paper from '@mui/material/Paper';
 import Title from "../../../Generics/Title/index.jsx";
 import {Dot, Section, TimelineWrapper, Wrapper} from "./style.js";
 import {Icons} from "../style.js";
+import Button from "../../../Generics/Button/index.jsx";
 
 
 function Row(props) {
@@ -91,16 +92,6 @@ function Row(props) {
                                                 </TableCell>
                                             </TableRow>
                                         }
-                                        // <TableRow key={historyRow.date}>
-                                        //     <TableCell component="th" scope="row">
-                                        //         {historyRow.date}
-                                        //     </TableCell>
-                                        //     <TableCell>{historyRow.customerId}</TableCell>
-                                        //     <TableCell align="right">{historyRow.amount}</TableCell>
-                                        //     <TableCell align="right">
-                                        //         {Math.round(historyRow.amount * row.price * 100) / 100}
-                                        //     </TableCell>
-                                        // </TableRow>
                                     )}
                                 </TableBody>
                             </Table>

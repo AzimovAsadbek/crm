@@ -9,6 +9,7 @@ import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import Title from "../../Generics/Title/index.jsx";
 import CollapsibleTable from "./TableCollapse/index.jsx";
 import rows from "../../../mock/groups.js";
+import Button from "../../Generics/Button/index.jsx";
 
 
 const AllCourses = () => {
@@ -25,6 +26,9 @@ const AllCourses = () => {
         console.log("move")
 
     }
+    const onCourseEdit = (e) => {
+        e.stopPropagation()
+    }
 
     const headCells = [
         {
@@ -35,6 +39,7 @@ const AllCourses = () => {
             id: "action",
             label: "",
             render: (row) => <Icons>
+                <Button type={"add"} onClick={(e) => onCourseEdit(e)}/>
                 <Icons.Edit onClick={(e) => onEdit(e, row)}/>
                 <Icons.Delete onClick={(e) => {
                 }}/>
