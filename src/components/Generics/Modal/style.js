@@ -4,7 +4,7 @@ const Container = styled.div`
     position: absolute;
     inset: 0;
     border: 1px solid black;
-    z-index: 9999;
+    z-index: 999;
     background-color: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(4px);
     display: flex;

@@ -11,7 +11,6 @@ import Paper from '@mui/material/Paper';
 import Title from "../../../Generics/Title/index.jsx";
 import {Dot, Section, TimelineWrapper, Wrapper} from "./style.js";
 import {Icons} from "../style.js";
-import Button from "../../../Generics/Button/index.jsx";
 
 
 function Row(props) {
