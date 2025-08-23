@@ -24,6 +24,7 @@ import RolsView from "../views/Hr/rolsView.jsx";
 import HodimlarView from "../views/Hr/hodimlarView.jsx";
 import AllCoursesView from "../views/Courses/allCourses.jsx";
 import CourseOrientationView from "../views/Courses/CourseOrientation.jsx";
+import UmumiySozlamalarView from "../views/Sozlamalar/umumiy.jsx";
 
 
 const sidebar = [
@@ -235,7 +236,7 @@ const sidebar = [
                 title: "Umumiy Sozlamalar",
                 path: "/sozlamalar/umumiy",
                 isPrivate: true,
-                element: Generics,
+                element: UmumiySozlamalarView,
                 role: ["admin", "manager"],
             },
             {

@@ -3,12 +3,25 @@ import Generics from "../views/Generics"
 import sidebar from "../utils/sidebar"
 import Sidebar from "../components/Sidebar"
 import CheckIn from "../components/Groups/Groups/checkIn.jsx";
+import UmumiySozlamalar from "../components/Sozlamalar/Umumiy/index.jsx";
+import umumiy from "../utils/sozlamalar.js";
 
 
 const Root = () => {
     return (
         <Routes>
             <Route element={<Sidebar/>}>
+                <Route element={<UmumiySozlamalar/>}>
+                    <Route path="/sozlamalar/umumiy"
+                           element={<Navigate state={{parent: "Sozlamalar", child: "Umumiy Sozlamalar"}}
+                                              to={"/sozlamalar/umumiy/check"}/>}/>
+
+                    {umumiy.map(v => {
+                        const Element = v.element;
+
+                        return <Route element={<Element/>} key={v.path} path={v.path}/>
+                    })}
+                </Route>
                 <Route path={"/guruhlar/guruhlar/checkin"} element={<CheckIn/>}/>
                 {sidebar.map(parent => {
                     const Element = parent.element
