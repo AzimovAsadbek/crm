@@ -1,4 +1,4 @@
-import UmumiySozlamalar from "../../components/Sozlamalar/Umumiy/index.jsx";
+import UmumiySozlamalar from "../../../components/Sozlamalar/Umumiy/index.jsx";
 
 const UmumiySozlamalarView = () => <UmumiySozlamalar/>
 export default UmumiySozlamalarView;

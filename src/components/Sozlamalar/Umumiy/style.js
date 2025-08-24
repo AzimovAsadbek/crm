@@ -7,7 +7,6 @@ const Container = styled.div`
 
 const SubSidebar = styled.aside`
     width: 250px;
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
 
@@ -55,7 +54,7 @@ const SubSidebarItem = styled(NavLink)`
 `
 
 const Body = styled.div`
-    border: 1px solid green;
+    padding: 12px 0 0 32px;
     flex: 1;
 `
 export {Container, SubSidebar, Body, SubSidebarItem}

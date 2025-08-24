@@ -24,7 +24,7 @@ import RolsView from "../views/Hr/rolsView.jsx";
 import HodimlarView from "../views/Hr/hodimlarView.jsx";
 import AllCoursesView from "../views/Courses/allCourses.jsx";
 import CourseOrientationView from "../views/Courses/CourseOrientation.jsx";
-import UmumiySozlamalarView from "../views/Sozlamalar/umumiy.jsx";
+import UmumiySozlamalarView from "../views/Sozlamalar/Umumiy/umumiy.jsx";
 
 
 const sidebar = [

@@ -3,6 +3,7 @@ import arrow from "../../../assets/icons/arrow.svg?react"
 import filter from "../../../assets/icons/filter.svg?react"
 import imp from "../../../assets/icons/import.svg?react"
 import add from "../../../assets/icons/add.svg?react"
+import getValue from "../../../hooks/getValue.js";
 
 const Button = styled.button`
     display: flex;
@@ -18,6 +19,10 @@ const Button = styled.button`
     cursor: pointer;
     color: var(--primaryColor);
     white-space: nowrap;
+    width: ${({$width}) => getValue($width, "100%")};
+    margin-right: ${({$mr}) => getValue($mr, 0)};
+    margin-left: ${({$ml}) => getValue($ml, 0)};
+    margin-bottom: ${({$mb}) => getValue($mb, 0)};
 
     &:active {
         opacity: 0.8;
