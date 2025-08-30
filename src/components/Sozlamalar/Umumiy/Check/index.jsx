@@ -18,7 +18,7 @@ const Check = () => {
         <Container>
             <div>
                 <Title color={"var(--secondaryColor)"} $font_size={16} $line_height={24} $mb={8}>Logo</Title>
-                <DownloadWrapper url={url}>
+                <DownloadWrapper $url={url}>
                     <DownloadInput type={"file"} onChange={onUpload}/>
                 </DownloadWrapper>
             </div>

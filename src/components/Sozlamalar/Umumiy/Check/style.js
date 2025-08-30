@@ -11,7 +11,7 @@ const DownloadWrapper = styled.div`
     height: 112px;
     border-radius: 8px;
     background-color: #F8FAFC;
-    background-image: ${({url}) => url && `url(${url})`};
+    background-image: ${({$url}) => $url && `url(${$url})`};
     position: relative;
     background-size: cover;
     background-position: center;
@@ -21,8 +21,9 @@ const DownloadWrapper = styled.div`
 const DownloadInput = styled.input`
     position: absolute;
     inset: 0;
-    border: 1px solid red;
+    top: -15px;
     opacity: 0;
+    cursor: pointer;
 `
 
 export {Container, DownloadWrapper, DownloadInput}
