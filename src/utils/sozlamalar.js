@@ -8,6 +8,7 @@ import sorovnoma from "../assets/icons/sozlamalar/sorovnomalar.svg?react"
 // components
 import Generics from "../views/Generics/index.jsx";
 import CheckView from "../views/Sozlamalar/Umumiy/check.jsx";
+import FiliallarView from "../views/Sozlamalar/Umumiy/filiallar.jsx";
 
 
 const umumiy = [
@@ -15,7 +16,7 @@ const umumiy = [
         id: 1, title: "Check", icon: check, element: CheckView, path: "/sozlamalar/umumiy/check"
     },
     {
-        id: 1, title: "Filiallar", icon: filiallar, element: Generics, path: "/sozlamalar/umumiy/filiallar"
+        id: 1, title: "Filiallar", icon: filiallar, element: FiliallarView, path: "/sozlamalar/umumiy/filiallar"
     },
     {
         id: 1, title: "Xabarnomalar", icon: sms, element: Generics, path: "/sozlamalar/umumiy/xabarnomalar"
