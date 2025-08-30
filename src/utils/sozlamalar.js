@@ -10,6 +10,7 @@ import Generics from "../views/Generics/index.jsx";
 import CheckView from "../views/Sozlamalar/Umumiy/check.jsx";
 import FiliallarView from "../views/Sozlamalar/Umumiy/filiallar.jsx";
 import XabarnomaView from "../views/Sozlamalar/Umumiy/xabarnoma.jsx";
+import SorovnomalarView from "../views/Sozlamalar/Umumiy/sorovnomalar.jsx";
 
 
 const umumiy = [
@@ -23,7 +24,7 @@ const umumiy = [
         id: 1, title: "Xabarnomalar", icon: sms, element: XabarnomaView, path: "/sozlamalar/umumiy/xabarnomalar"
     },
     {
-        id: 1, title: "So'rovnoma", icon: sorovnoma, element: Generics, path: "/sozlamalar/umumiy/sorovnoma"
+        id: 1, title: "So'rovnoma", icon: sorovnoma, element: SorovnomalarView, path: "/sozlamalar/umumiy/sorovnoma"
     },
     {
         id: 1, title: "Raqamni belgilash", icon: call, element: Generics, path: "/sozlamalar/umumiy/raqamni-belgilash"

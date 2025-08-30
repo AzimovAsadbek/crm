@@ -11,13 +11,13 @@ const Xabarnoma = () => {
             status: true
         },
         {
-            id: 1,
+            id: 2,
             xabarnoma: "Tolov vaqtini eslatish",
             time: "20:00",
             status: false
         },
         {
-            id: 1,
+            id: 3,
             xabarnoma: "Qoldirilgan darslar",
             time: "21:00",
             status: true
