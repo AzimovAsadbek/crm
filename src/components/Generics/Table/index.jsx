@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import GenericSelect from "../GenericSelect/GenericSelect.jsx";
 import {useNavigate} from "react-router-dom";
+import {Switch} from "@mui/material";
 
 
 function EnhancedTableHead(props) {
@@ -34,7 +35,7 @@ function EnhancedTableHead(props) {
                 {headCells.map((headCell) => (
                     <TableCell key={headCell.id} align={headCell?.align || "left"}
                                sx={{cursor: "pointer", color: "#929FAF", fontSize: 16, whiteSpace: "nowrap"}}>
-                        {headCell.label}
+                        {headCell.label} {headCell.switch && <Switch/>}
                     </TableCell>
                 ))}
             </TableRow>
@@ -135,7 +136,7 @@ export default function GenericTable(props) {
                                             headCells?.map((headCell) => {
                                                 return <TableCell align={headCell?.align || "left"} component="th"
                                                                   scope={'row'}
-                                                                  sx={{fontSize: 16}}
+                                                                  sx={{fontSize: 16, color: "var(--primaryColor)"}}
                                                                   key={headCell?.id}>{headCell?.render ? headCell.render(row) : row[headCell?.id]}</TableCell>
                                             })
                                         }

@@ -1,7 +1,12 @@
 import {Container} from "./style.js";
 import GenericTable from "../../../Generics/Table/index.jsx";
+import Breadcrumb from "../../Breadcrumb/index.jsx";
+import GenericButton from "../../../Generics/Button/index.jsx";
+import FilialModal from "./modal.jsx";
+import {useState} from "react";
 
 const Filiallar = () => {
+    const [modal, setModal] = useState(false);
     const rows = [
         {
             id: 1,
@@ -25,8 +30,15 @@ const Filiallar = () => {
         },
     ]
 
+
     return (
         <Container>
+            <FilialModal open={modal} onSave={() => setModal(false)} onClose={() => setModal(false)}/>
+            <Breadcrumb>
+                <GenericButton $bgcolor={"#FA8C16"} type={"add"} onClick={() => setModal(true)}>Filial
+                    qo'shish</GenericButton>
+            </Breadcrumb>
+
             <GenericTable rows={rows} headCells={cells} checkbox={false}/>
         </Container>
     );

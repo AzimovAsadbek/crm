@@ -1,6 +1,6 @@
 import {Container, Icons} from "./style.js";
 import {useState} from "react";
-import Breadcrumb from "../../Analitika/Breadcrumb/index.jsx";
+import Breadcrumb from "../../Generics/Breadcrumb/index.jsx";
 import GenericButton from "../../Generics/Button/index.jsx";
 import AllLidsModal from "./modal.jsx";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";

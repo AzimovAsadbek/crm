@@ -1,6 +1,7 @@
 import {Container} from "./style.js";
 import GenericTable from "../../../Generics/Table/index.jsx";
 import {Switch} from "@mui/material";
+import Breadcrumb from "../../Breadcrumb/index.jsx";
 
 const Xabarnoma = () => {
     const rows = [
@@ -35,6 +36,7 @@ const Xabarnoma = () => {
 
     return (
         <Container>
+            <Breadcrumb/>
             <GenericTable rows={rows} headCells={cells} checkbox={false}/>
         </Container>
     );

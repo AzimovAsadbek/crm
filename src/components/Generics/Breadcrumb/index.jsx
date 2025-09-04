@@ -1,6 +1,6 @@
 import {useLocation} from "react-router-dom";
 import {Arrow, Conatiner} from "./style.js";
-import Title from "../../Generics/Title/index.jsx";
+import Title from "../Title/index.jsx";
 
 
 const Breadcrumb = (props) => {

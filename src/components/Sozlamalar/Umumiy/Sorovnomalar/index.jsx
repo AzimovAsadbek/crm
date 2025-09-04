@@ -1,8 +1,13 @@
 import {Container} from "./style.js";
 import GenericTable from "../../../Generics/Table/index.jsx";
-import {Switch} from "@mui/material";
+import Breadcrumb from "../../Breadcrumb/index.jsx";
+import GenericButton from "../../../Generics/Button/index.jsx";
+import {useState} from "react";
+import SorovnomaModal from "./modal.jsx";
 
 const Sorovnomalar = () => {
+    const [modal, setModal] = useState(false);
+
     const rows = [
         {
             id: 1,
@@ -39,6 +44,12 @@ const Sorovnomalar = () => {
 
     return (
         <Container>
+            <SorovnomaModal open={modal} onSave={() => setModal(false)} onClose={() => setModal(false)}/>
+            <Breadcrumb>
+                <GenericButton $bgcolor={"#FA8C16"} type={"add"} onClick={() => setModal(true)}>Sorovnoma
+                    qo'shish</GenericButton>
+            </Breadcrumb>
+
             <GenericTable rows={rows} headCells={cells} checkbox={false}/>
         </Container>
     );

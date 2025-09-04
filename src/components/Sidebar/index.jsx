@@ -56,7 +56,10 @@ const Sidebar = () => {
     };
     const clickChild = (e, {path, title}, parent) => {
         e.preventDefault();
-        navigate(path, {state: {parent: parent, child: title}});
+        if ("Umumiy Sozlamalar" === title) {
+            navigate(path, {state: {parent: parent, child: title, subChild: "Check"}});
+        } else
+            navigate(path, {state: {parent: parent, child: title}});
     }
     return (
         <Container>
@@ -99,7 +102,7 @@ const Sidebar = () => {
                                                 <ChildWrapper
                                                     $active={open.includes(parent?.id) ? "true" : ""}
                                                     $activepath={
-                                                        location.pathname.includes(child.path) ? "true" : ""
+                                                        location.pathname.includes(child.path.split("/")[2]) ? "true" : ""
                                                     }
                                                 >
                                                     <ChildTitle>

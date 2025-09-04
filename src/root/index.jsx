@@ -4,7 +4,11 @@ import sidebar from "../utils/sidebar"
 import Sidebar from "../components/Sidebar"
 import CheckIn from "../components/Groups/Groups/checkIn.jsx";
 import UmumiySozlamalar from "../components/Sozlamalar/Umumiy/index.jsx";
-import umumiy from "../utils/sozlamalar.js";
+import umumiy, {manager, mentor, student} from "../utils/sozlamalar.js";
+import ManagerSozlamalar from "../components/Sozlamalar/Manager/index.jsx";
+import MentorSozlamalar from "../components/Sozlamalar/Mentor/index.jsx";
+import StudentSozlamalar from "../components/Sozlamalar/Student/index.jsx";
+import students from "../mock/students.js";
 
 
 const Root = () => {
@@ -12,16 +16,35 @@ const Root = () => {
         <Routes>
             <Route element={<Sidebar/>}>
                 <Route element={<UmumiySozlamalar/>}>
-                    <Route path="/sozlamalar/umumiy"
-                           element={<Navigate state={{parent: "Sozlamalar", child: "Umumiy Sozlamalar"}}
-                                              to={"/sozlamalar/umumiy/check"}/>}/>
-
                     {umumiy.map(v => {
                         const Element = v.element;
 
                         return <Route element={<Element/>} key={v.path} path={v.path}/>
                     })}
                 </Route>
+                <Route element={<ManagerSozlamalar/>}>
+                    {manager.map(v => {
+                        const Element = v.element;
+
+                        return <Route element={<Element/>} key={v.path} path={v.path}/>
+                    })}
+                </Route>
+                <Route element={<MentorSozlamalar/>}>
+                    {mentor.map(v => {
+                        const Element = v.element;
+
+                        return <Route element={<Element/>} key={v.path} path={v.path}/>
+                    })}
+                </Route>
+
+                <Route element={<StudentSozlamalar/>}>
+                    {student.map(v => {
+                        const Element = v.element;
+
+                        return <Route element={<Element/>} key={v.path} path={v.path}/>
+                    })}
+                </Route>
+
                 <Route path={"/guruhlar/guruhlar/checkin"} element={<CheckIn/>}/>
                 {sidebar.map(parent => {
                     const Element = parent.element

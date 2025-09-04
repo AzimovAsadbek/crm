@@ -32,5 +32,7 @@ const Footer = styled.div`
     justify-content: flex-end;
     gap: 16px;
     margin-top: 16px;
+    width: 196px;
+    margin-left: auto;
 `
 export {Wrapper, Container, Footer};

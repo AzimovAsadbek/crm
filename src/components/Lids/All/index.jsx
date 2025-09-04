@@ -1,12 +1,12 @@
 import {Container, Icons} from "./style.js";
 import GenericTable from "../../Generics/Table";
 import {useState} from "react";
-import Breadcrumb from "../../Analitika/Breadcrumb/index.jsx";
+import Breadcrumb from "../../Generics/Breadcrumb/index.jsx";
 import GenericButton from "../../Generics/Button/index.jsx";
 import GenericSelect from "../../Generics/GenericSelect/GenericSelect.jsx";
 import * as React from "react";
 import GenericModal from "../../Generics/Modal/index.jsx";
-import AllLidsModal from "./modal.jsx";
+import AllLidsModal from "../../Sozlamalar/Umumiy/Filiallar/modal.jsx";
 import Title from "../../Generics/Title/index.jsx";
 
 const AllLids = () => {
@@ -34,7 +34,7 @@ const AllLids = () => {
             id: 'group',
             label: 'Guruh / Fan',
         },
-        
+
         {
             id: 'addedDate',
             label: 'Qo’shilgan sana',

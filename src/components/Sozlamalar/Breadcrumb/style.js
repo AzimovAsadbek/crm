@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import arrow from "../../../assets/icons/arrow.svg?react"
-import title from "../../Generics/Title/index.jsx";
 
 
 const getColor = ({title}) => {

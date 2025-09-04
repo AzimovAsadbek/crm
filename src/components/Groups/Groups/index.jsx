@@ -1,7 +1,7 @@
 import {Container, Icons} from "./style.js";
 import GenericTable from "../../Generics/Table";
 import {useState} from "react";
-import Breadcrumb from "../../Analitika/Breadcrumb/index.jsx";
+import Breadcrumb from "../../Generics/Breadcrumb/index.jsx";
 import GenericButton from "../../Generics/Button/index.jsx";
 import GenericSelect from "../../Generics/GenericSelect/GenericSelect.jsx";
 import * as React from "react";
