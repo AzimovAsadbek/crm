@@ -5,7 +5,6 @@ import Title from "../../Generics/Title/index.jsx";
 
 const Breadcrumb = (props) => {
     const location = useLocation()
-
     return location.pathname !== "/analitika" ? <Conatiner title={location.state?.parent}>
         <Title type={"true"} $line_height={28} $font_size={20}
         >{location.state?.parent}</Title>

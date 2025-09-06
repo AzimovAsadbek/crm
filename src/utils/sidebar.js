@@ -246,6 +246,7 @@ const sidebar = [
                 isPrivate: true,
                 element: Generics,
                 role: ["admin", "manager"],
+                subChildTitle: "To'lovlar"
             },
             {
                 id: `8-3`,
@@ -254,6 +255,8 @@ const sidebar = [
                 isPrivate: true,
                 element: Generics,
                 role: ["admin", "manager"],
+                subChildTitle: "KPI"
+
             },
             {
                 id: `8-4`,
@@ -262,6 +265,7 @@ const sidebar = [
                 isPrivate: true,
                 element: Generics,
                 role: ["admin", "manager"],
+                subChildTitle: "To'lovlar"
             },
         ],
     },

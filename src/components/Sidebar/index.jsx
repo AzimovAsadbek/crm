@@ -54,10 +54,11 @@ const Sidebar = () => {
     const logOut = () => {
         navigate("/login");
     };
-    const clickChild = (e, {path, title}, parent) => {
+    const clickChild = (e, child, parent) => {
+        let {path, title} = child
         e.preventDefault();
-        if ("Umumiy Sozlamalar" === title) {
-            navigate(path, {state: {parent: parent, child: title, subChild: "Check"}});
+        if ("Sozlamalar" === parent) {
+            navigate(path, {state: {parent: parent, child: title, subChild: child.subChildTitle || ""}});
         } else
             navigate(path, {state: {parent: parent, child: title}});
     }
