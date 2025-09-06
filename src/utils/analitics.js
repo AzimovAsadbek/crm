@@ -11,54 +11,35 @@ import linIcon from "../assets/icons/linkedinIcon.svg?react";
 import ytIcon from "../assets/icons/youtubeIcon.svg?react";
 
 const privateData = [
-  {
-    id: 1,
-    title: "Talabalar",
-    icon: studentIcon,
-    img: studentImg,
-    count: "285",
-  },
-  {
-    id: 2,
-    title: "Mentorlar",
-    icon: mentorIcon,
-    img: mentorImg,
-    count: "36",
-  },
-  {
-    id: 3,
-    title: "Filiallar",
-    icon: filialIcon,
-    img: filialImg,
-    count: "3",
-  },
+    {
+        id: 1,
+        title: "Talabalar",
+        icon: studentIcon,
+        img: studentImg,
+        count: "students",
+    },
+    {
+        id: 2,
+        title: "Mentorlar",
+        icon: mentorIcon,
+        img: mentorImg,
+        count: "filials",
+    },
+    {
+        id: 3,
+        title: "Filiallar",
+        icon: filialIcon,
+        img: filialImg,
+        count: "mentors",
+    },
 ];
 
-export const media = [
-  {
-    id: 1,
-    title: "Instagram",
-    icon: inIcon,
-    count: "16",
-  },
-  {
-    id: 2,
-    title: "Telegram",
-    icon: tgIcon,
-    count: "28",
-  },
-  {
-    id: 3,
-    title: "Youtube",
-    icon: ytIcon,
-    count: "31",
-  },
-  {
-    id: 4,
-    title: "Linkedin",
-    icon: linIcon,
-    count: "2",
-  },
-];
+export const media = {
+    0: inIcon,
+    1: tgIcon,
+    2: ytIcon,
+    3: linIcon,
+    4: linIcon,
+};
 
 export default privateData;

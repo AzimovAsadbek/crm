@@ -1,15 +1,30 @@
 import {Arrow, ArrowUp, Container, DateContainer, Top, Wrapper, Secton, Dot} from "./style.js";
 import Title from "../../Generics/Title/index.jsx";
 import useDate, {days, months} from "../../../hooks/useDate.js";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Section} from "../style.js";
+import {EmailContext} from "../../../context/email/index.jsx";
+import {MoliyaContext} from "../../../context/moliya/index.jsx";
 
 const Moliya = () => {
     const date = useDate()
     const [dateCount, setDateCount] = useState(0)
     const [day, setday] = useState(new Date())
+    const [data, setData] = useState({})
+    let url = import.meta.env.VITE_BASE_URL
+    let [state, dispatch] = useContext(MoliyaContext);
+    useEffect(() => {
+        fetch(`${url}/tabs/moliya`).then(res => res.json()).then((res) => {
+            const d = new Date().getDate();
+            setData(res.filter(v => v.today === `${d}`)[0])
+            return dispatch({
+                type: "get",
+                payload: res
+            })
+        })
+    }, []);
 
-    const clickDate = (d) => {
+    const clickDate = (d, v) => {
         if (date.date(dateCount)[0].getDate() === d.getDate()) {
             setDateCount(dateCount - 1)
         }
@@ -17,6 +32,7 @@ const Moliya = () => {
             setDateCount(dateCount + 1)
         }
         setday(d)
+        setData(v)
     }
     return <Container>
         <Top>
@@ -27,13 +43,15 @@ const Moliya = () => {
 
         <DateContainer>
             {
-                date?.date(dateCount).map((v, i) => {
-                    const ac = day.getDate() === v.getDate() && day.getMonth() === v.getMonth() && day.getFullYear() === v.getFullYear()
-                    return <Wrapper $active={`${ac}`} key={i} onClick={() => clickDate(v)}>
+                state.map((v, i) => {
+                    const d = new Date(v.day);
+
+                    const ac = day.getDate() === d.getDate() && day.getMonth() === d.getMonth() && day.getFullYear() === d.getFullYear()
+                    return <Wrapper $active={`${ac}`} key={i} onClick={() => clickDate(d, v)}>
                         <Title $font_size={12} $line_height={20}
-                               color={ac ? "white" : "var(--secondaryColor)"}>{days[v.getDay()].short}</Title>
+                               color={ac ? "white" : "var(--secondaryColor)"}>{days[d.getDay()].short}</Title>
                         <Title color={ac ? "white" : ""} $font_size={14} $line_height={20}
-                               type={"true"}>{v.getDate()}</Title>
+                               type={"true"}>{d.getDate()}</Title>
                     </Wrapper>
                 })
             }
@@ -42,7 +60,7 @@ const Moliya = () => {
             <Title $font_size={12} $line_height={20}
                    color={"var(--secondaryColor)"}>{day.getDate()}-{months[day.getMonth()].full} {day.getFullYear()}</Title>
             <Secton>
-                <Title $font_size={32} $line_height={40} type={"bold"}>8 520 000</Title>
+                <Title $font_size={32} $line_height={40} type={"bold"}>{data?.students}</Title>
                 <ArrowUp/>
                 <Title $font_size={24} $line_height={32} color={"#52C41A"}>+22%</Title>
             </Secton>
@@ -53,14 +71,14 @@ const Moliya = () => {
                     <Dot $first={`true`}/>
                     <Title $font_size={14} $line_height={20}>Talabalar</Title>
                 </Section>
-                <Title $font_size={14} $line_height={20}>5 760 000</Title>
+                <Title $font_size={14} $line_height={20}>{data?.students}</Title>
             </Top>
             <Top>
                 <Section>
                     <Dot/>
                     <Title $font_size={14} $line_height={20}>Darsliklar sotuvi</Title>
                 </Section>
-                <Title $font_size={14} $line_height={20}>2 180 000</Title>
+                <Title $font_size={14} $line_height={20}>{data?.video}</Title>
             </Top>
         </div>
     </Container>

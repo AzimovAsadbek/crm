@@ -14,8 +14,33 @@ import {
     Wrapper,
 } from "./style";
 import Moliya from "./Moliya/index.jsx";
+import {useContext, useEffect} from "react";
+import {AnalyticsContext} from "../../context/analytics/index.jsx";
+import {MediaContext} from "../../context/media/index.jsx";
+import {EmailContext} from "../../context/email/index.jsx";
 
 const Analitika = () => {
+    let url = import.meta.env.VITE_BASE_URL
+    let [state, dispatch] = useContext(AnalyticsContext);
+    let [mediaState, mediaDispatch] = useContext(MediaContext);
+    let [email] = useContext(EmailContext)
+    const getAnalytics = () => {
+        fetch(`${url}/tabs/analytics_page`).then(res => res.json()).then(([res]) => dispatch({
+            type: "get",
+            payload: res
+        }))
+    }
+
+    const getMedia = () => {
+        fetch(`${url}/tabs/media`).then(res => res.json()).then((res) => mediaDispatch({
+            type: "get",
+            payload: res
+        }))
+    }
+    useEffect(() => {
+        getAnalytics()
+        getMedia()
+    }, []);
     return (
         <Container>
             <div>
@@ -38,7 +63,7 @@ const Analitika = () => {
                                 <Section>
                                     <Title type="true" $font_size={40}>
                                         <ArrowIcon/>
-                                        {v.count}
+                                        {state[v.count] || ""}
                                     </Title>
                                     <Img/>
                                 </Section>
@@ -50,8 +75,8 @@ const Analitika = () => {
             <div>
                 <Title $mb={16}>Ijtimoiy tarmoqlar</Title>
                 <Wrapper>
-                    {media.map((v) => {
-                        const {icon: Icon} = v;
+                    {mediaState?.map((v, i) => {
+                        const Icon = media[i];
                         return (
                             <SubCard key={v.id}>
                                 <Section>
@@ -65,8 +90,8 @@ const Analitika = () => {
                                         <ArrowIcon child="true"/>
                                         +22%
                                     </Title>
-                                    <Title type="true" $font_size={40}>
-                                        {v.count}k
+                                    <Title type="true" $font_size={38}>
+                                        {(v.subscribers / 1000).toFixed(1)}k
                                     </Title>
                                 </Section>
                             </SubCard>
@@ -77,7 +102,7 @@ const Analitika = () => {
             <Footer>
                 <Fragment title="email">
                     <Title $font_size={16}>
-                        Email habarlari <Count>12</Count>
+                        Email habarlari <Count>{email.length}</Count>
                     </Title>
                     <Email/>
                 </Fragment>
