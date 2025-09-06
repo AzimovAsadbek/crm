@@ -120,14 +120,14 @@ const Count = styled.div`
 `;
 
 export {
-    Container,
-    Wrapper,
-    Card,
-    Section,
-    Plus,
     ArrowIcon,
-    SubCard,
+    Card,
+    Container,
+    Count,
     Footer,
     Fragment,
-    Count,
-};
+    Plus,
+    Section,
+    SubCard,
+    Wrapper,
+}

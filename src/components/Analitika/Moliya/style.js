@@ -67,4 +67,4 @@ const Dot = styled.div`
     margin-right: 12px;
     background-color: ${({$first}) => $first ? "#A0D911" : "#D3ADF7"};
 `
-export {Container, Top, Arrow, DateContainer, Wrapper, Secton, ArrowUp, Dot}
+export {Arrow, ArrowUp, Container, DateContainer, Top, Wrapper, Secton, Dot}

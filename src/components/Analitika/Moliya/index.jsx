@@ -3,7 +3,6 @@ import Title from "../../Generics/Title/index.jsx";
 import useDate, {days, months} from "../../../hooks/useDate.js";
 import {useContext, useEffect, useState} from "react";
 import {Section} from "../style.js";
-import {EmailContext} from "../../../context/email/index.jsx";
 import {MoliyaContext} from "../../../context/moliya/index.jsx";
 
 const Moliya = () => {

@@ -1,11 +1,9 @@
-import {emailData} from "../../../mock/email";
-import {Container, Img, Section, Title} from "./style";
-import {Info} from "./style";
+import {Info, Container, Img, Section, Title} from "./style";
 import {useContext, useEffect} from "react";
-import {AnalyticsContext} from "../../../context/analytics/index.jsx";
 import {EmailContext} from "../../../context/email/index.jsx";
 
 const Email = () => {
+
     let url = import.meta.env.VITE_BASE_URL
     let [state, dispatch] = useContext(EmailContext);
     useEffect(() => {
@@ -14,6 +12,8 @@ const Email = () => {
             payload: res
         }))
     }, []);
+
+
     return (
         <Container>
             {state.map((v) => {
