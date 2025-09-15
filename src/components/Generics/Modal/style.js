@@ -13,10 +13,9 @@ const Container = styled.div`
 `
 
 const Wrapper = styled.div`
-    //margin: 38px auto auto;
-    width: fit-content;
-    max-width: 900px;
-    min-width: 200px;
+    width: 596px;
+    max-width: 900px !important;
+    min-width: 200px !important;
     background-color: white;
     border-radius: 8px;
     padding: 32px 48px;

@@ -5,19 +5,19 @@ import Breadcrumb from "../../Generics/Breadcrumb/index.jsx";
 import GenericButton from "../../Generics/Button/index.jsx";
 import GenericSelect from "../../Generics/GenericSelect/GenericSelect.jsx";
 import * as React from "react";
-import AllLidsModal from "../../Sozlamalar/Umumiy/Filiallar/modal.jsx";
 import Title from "../../Generics/Title/index.jsx";
 import useFetch from "../../../hooks/useFetch.jsx";
 import {AllLidsContext} from "../../../context/lids/index.jsx";
 import GenericInput from "../../Generics/Input/index.jsx";
 import useQuery from "../../../hooks/useQuery.js";
 import useReplace from "../../../hooks/useReplace.js";
-import {replace, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {groups} from "../../../utils/group.js";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
-import moment from "moment/moment.js";
+import moment from "moment";
+import AllLidsModal from "./modal.jsx";
 
 const AllLids = () => {
     const [open, setOpen] = useState(false);
@@ -63,7 +63,6 @@ const AllLids = () => {
         (await request)(`/tabs/students/id/${row.id}`, {
             method: "DELETE"
         }).then(v => {
-            console.log(v, "delete");
             getStudent();
         }).catch(error => {
             console.error("Xato yuz berdi:", error.message);
@@ -104,12 +103,10 @@ const AllLids = () => {
     ];
 
 
-    const onToggleModal = () => {
+    const onToggleModal = (callback) => {
         setOpenModal(!openModal);
         setModalData(null)
-    }
-
-    const onSave = () => {
+        callback && callback()
     }
 
 
@@ -123,18 +120,17 @@ const AllLids = () => {
 
     const onSelectDate = (event) => {
         const time = moment(event)
-        console.log(time.month())
-        let date = `${time.date()}/${time.month()}/${time.year()}`
+        let date = `${time.month() + 1}/${time.date()}/${time.year()}`
         if (!time.date() && !time.month() && !time.year()) date = null
         setFilter({...filter, date: date});
-        console.log(date)
-        const query = useReplace(value, name)
+        const query = useReplace(date, "added_date")
         navigate(`${location.pathname}${query}`, {state: {parent: "Lidlar", child: "Barcha Lidlar"}})
         getStudent(`/search${query}`)
     }
 
     return <Container>
-        <AllLidsModal open={openModal} onClose={onToggleModal} onSave={onSave} data={modalData}/>
+        <AllLidsModal open={openModal} onClose={onToggleModal} data={modalData} onUpload={getStudent}
+                      len={state?.length || 1}/>
 
         <Breadcrumb>
             <GenericButton type={"import"}>Import</GenericButton>
@@ -160,9 +156,10 @@ const AllLids = () => {
                        color={"var(--secondaryColor)"}>Qo’shilgan sana</Title>
                 <LocalizationProvider dateAdapter={AdapterMoment} sx={{color: "red"}}>
                     <DatePicker
-                        value={moment(filter.date)}
+                        defaultValue={moment(filter.date) || ""}
                         onChange={onSelectDate}
                         slotProps={{textField: {size: "small"}}}
+
                     />
                 </LocalizationProvider>
             </div>

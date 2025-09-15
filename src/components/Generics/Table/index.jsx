@@ -113,7 +113,6 @@ export default function GenericTable(props) {
                             {rows.map((row, index) => {
                                 const isItemSelected = selected.includes(row.id);
                                 const labelId = `enhanced-table-checkbox-${index}`;
-
                                 return (
                                     <TableRow
                                         hover

@@ -1,10 +1,12 @@
 import {FormControl, MenuItem, Select} from "@mui/material"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 
 const GenericSelect = ({data, value, width, onChange, name}) => {
     const [defaultVal, setDefaultVal] = useState(value || (data?.length && data[0]?.value) || "");
-
+    useEffect(() => {
+        setDefaultVal(value || (data?.length && data[0]?.value || ""));
+    }, [value]);
     const handleChange = (event) => {
         setDefaultVal(event.target.value);
         onChange && onChange(event);

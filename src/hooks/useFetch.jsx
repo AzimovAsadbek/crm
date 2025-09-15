@@ -7,7 +7,6 @@ const useFetch = () => {
             mode: "cors",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${apiKey}`,
                 ...options.headers,
             },
             body: options.body ? JSON.stringify(options.body) : undefined,

@@ -34,7 +34,6 @@ const Analitika = () => {
             const newCount = prev + 1;
             if (newCount === 2) {
                 setTimeout(() => {
-                    console.log("loadedCount", newCount);
                     setLoading(false)
                 }, 300);
             }
