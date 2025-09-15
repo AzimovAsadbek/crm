@@ -5,7 +5,6 @@ import GenericInput from "../../../Generics/Input/index.jsx";
 const FilialModal = (props) => {
     const {data} = props
 
-
     return (
         <GenericModal {...props}>
             <Title type={"bold"} $font_size={18}>Filial qo'shish</Title>

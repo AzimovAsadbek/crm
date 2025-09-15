@@ -14,35 +14,56 @@ import {
     Wrapper,
 } from "./style";
 import Moliya from "./Moliya/index.jsx";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import {AnalyticsContext} from "../../context/analytics/index.jsx";
 import {MediaContext} from "../../context/media/index.jsx";
 import {EmailContext} from "../../context/email/index.jsx";
+import Spinner from "../Generics/Spinner/index.jsx";
 
 const Analitika = () => {
+    const [loading, setLoading] = useState(true);
+    const [loadedCount, setLoadedCount] = useState(0);
+
     let url = import.meta.env.VITE_BASE_URL
     let [state, dispatch] = useContext(AnalyticsContext);
     let [mediaState, mediaDispatch] = useContext(MediaContext);
     let [email] = useContext(EmailContext)
+
+    const onLoaded = () => {
+        setLoadedCount(prev => {
+            const newCount = prev + 1;
+            if (newCount === 2) {
+                setTimeout(() => {
+                    console.log("loadedCount", newCount);
+                    setLoading(false)
+                }, 300);
+            }
+            return newCount;
+        });
+    };
+
     const getAnalytics = () => {
-        fetch(`${url}/tabs/analytics_page`).then(res => res.json()).then(([res]) => dispatch({
-            type: "get",
-            payload: res
-        }))
-    }
+        fetch(`${url}/tabs/analytics_page`)
+            .then(res => res.json())
+            .then(([res]) => dispatch({type: "get", payload: res}))
+            .finally(onLoaded);
+    };
 
     const getMedia = () => {
-        fetch(`${url}/tabs/media`).then(res => res.json()).then((res) => mediaDispatch({
-            type: "get",
-            payload: res
-        }))
-    }
+        fetch(`${url}/tabs/media`)
+            .then(res => res.json())
+            .then(res => mediaDispatch({type: "get", payload: res}))
+            .finally(onLoaded);
+    };
+
     useEffect(() => {
         getAnalytics()
         getMedia()
     }, []);
+
     return (
         <Container>
+            <Spinner spinner={loading}/>
             <div>
                 <Title $pt={19} $mb={16} type={"bold"} $font_size={20}>
                     Analitika

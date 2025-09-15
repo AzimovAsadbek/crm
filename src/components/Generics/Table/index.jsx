@@ -11,6 +11,7 @@ import Checkbox from '@mui/material/Checkbox';
 import GenericSelect from "../GenericSelect/GenericSelect.jsx";
 import {useNavigate} from "react-router-dom";
 import {Switch} from "@mui/material";
+import Spinner from "../Spinner/index.jsx";
 
 
 function EnhancedTableHead(props) {
@@ -45,7 +46,7 @@ function EnhancedTableHead(props) {
 
 
 export default function GenericTable(props) {
-    const {headCells, rows, open, checkbox = true, url} = props;
+    const {headCells, rows, open, checkbox = true, url, spinner = false} = props;
     const [selected, setSelected] = React.useState([]);
     const navigate = useNavigate();
     const handleSelectAllClick = (event) => {
@@ -82,6 +83,7 @@ export default function GenericTable(props) {
 
     return (
         <Box sx={{width: '100%'}}>
+            <Spinner spinner={spinner}/>
             <Box sx={{overflow: "hidden", height: !open ? 0 : "fit-content",}}>
                 <Table>
                     <TableBody>

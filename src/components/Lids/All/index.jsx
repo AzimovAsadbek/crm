@@ -1,27 +1,73 @@
 import {Container, Icons} from "./style.js";
 import GenericTable from "../../Generics/Table";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Breadcrumb from "../../Generics/Breadcrumb/index.jsx";
 import GenericButton from "../../Generics/Button/index.jsx";
 import GenericSelect from "../../Generics/GenericSelect/GenericSelect.jsx";
 import * as React from "react";
-import GenericModal from "../../Generics/Modal/index.jsx";
 import AllLidsModal from "../../Sozlamalar/Umumiy/Filiallar/modal.jsx";
 import Title from "../../Generics/Title/index.jsx";
+import useFetch from "../../../hooks/useFetch.jsx";
+import {AllLidsContext} from "../../../context/lids/index.jsx";
+import GenericInput from "../../Generics/Input/index.jsx";
+import useQuery from "../../../hooks/useQuery.js";
+import useReplace from "../../../hooks/useReplace.js";
+import {replace, useNavigate} from "react-router-dom";
+import {groups} from "../../../utils/group.js";
+import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
+import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
+import {DatePicker} from "@mui/x-date-pickers/DatePicker";
+import moment from "moment/moment.js";
 
 const AllLids = () => {
     const [open, setOpen] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [modalData, setModalData] = useState({});
+    const [spinner, setSpinner] = useState(false);
+    const navigate = useNavigate();
+    const [state, dispatch] = useContext(AllLidsContext);
+
+    const request = useFetch()
+    const query = useQuery();
+    const [filter, setFilter] = useState({
+        name: query.get("name") || "",
+        group: query.get("group") || "",
+        field: query.get("field") || "",
+        days: query.get("days") || "",
+        admin: query.get("admin") || "",
+        date: query.get("date") || "",
+
+    });
+
+
+    const getStudent = async (query = "") => {
+        setSpinner(true);
+        let res = await request(`/tabs/students${query}`);
+
+        dispatch({type: "get", payload: res})
+        setSpinner(false);
+    }
+
+    useEffect(() => {
+        getStudent()
+    }, [])
 
     const onEdit = (e, row) => {
         e.stopPropagation();
         setOpenModal(!openModal);
         setModalData(row)
     }
-    const onMove = (e) => {
+    const onMove = async (e, row) => {
         e.stopPropagation();
-        console.log("move")
+        setSpinner(true);
+        (await request)(`/tabs/students/id/${row.id}`, {
+            method: "DELETE"
+        }).then(v => {
+            console.log(v, "delete");
+            getStudent();
+        }).catch(error => {
+            console.error("Xato yuz berdi:", error.message);
+        });
 
     }
 
@@ -31,12 +77,16 @@ const AllLids = () => {
             label: 'O’quvchining ismi',
         },
         {
-            id: 'group',
+            id: 'field',
             label: 'Guruh / Fan',
+        },
+        {
+            id: 'days',
+            label: 'Dars kuni vaqti',
         },
 
         {
-            id: 'addedDate',
+            id: 'added_date',
             label: 'Qo’shilgan sana',
         },
         {
@@ -48,82 +98,82 @@ const AllLids = () => {
             label: "",
             render: (row) => <Icons>
                 <Icons.Edit onClick={(e) => onEdit(e, row)}/>
-                <Icons.Move onClick={onMove}/>
+                <Icons.Move onClick={(e) => onMove(e, row)}/>
             </Icons>
         }
     ];
 
-    const rows = [
-        {
-            id: 1,
-            name: "Javlon Javliyev",
-            group: "FrontEnd",
-            addedDate: "12.08.2025",
-            admin: "webbrain admin",
-        },
-        {
-            id: 2,
-            name: "Mutalxojayev Avazbek",
-            group: "FrontEnd",
-            addedDate: "14.08.2025",
-            admin: "webbrain admin",
-        },
-        {
-            id: 3,
-            name: "Xusanboyev Asliddin",
-            group: "FrontEnd",
-            addedDate: "14.08.2025",
-            admin: "webbrain admin",
-        },
-        {
-            id: 4,
-            name: "Javlon Javliyev",
-            group: "FrontEnd",
-            addedDate: "12.08.2025",
-            admin: "webbrain admin",
-        }
-    ]
 
-    const data = [
-        {value: "uzbek", title: "Uzbek"},
-        {value: "russian", title: "English"},
-        {value: "english", title: "Russian"},
-    ]
     const onToggleModal = () => {
         setOpenModal(!openModal);
         setModalData(null)
     }
+
     const onSave = () => {
+    }
+
+
+    const onChangeFilter = (e) => {
+        let {name, value} = e.target;
+        setFilter({...filter, [name]: value});
+        const query = useReplace(value, name)
+        navigate(`${location.pathname}${query}`, {state: {parent: "Lidlar", child: "Barcha Lidlar"}})
+        getStudent(`/search${query}`)
+    }
+
+    const onSelectDate = (event) => {
+        const time = moment(event)
+        console.log(time.month())
+        let date = `${time.date()}/${time.month()}/${time.year()}`
+        if (!time.date() && !time.month() && !time.year()) date = null
+        setFilter({...filter, date: date});
+        console.log(date)
+        const query = useReplace(value, name)
+        navigate(`${location.pathname}${query}`, {state: {parent: "Lidlar", child: "Barcha Lidlar"}})
+        getStudent(`/search${query}`)
     }
 
     return <Container>
         <AllLidsModal open={openModal} onClose={onToggleModal} onSave={onSave} data={modalData}/>
+
         <Breadcrumb>
             <GenericButton type={"import"}>Import</GenericButton>
             <GenericButton type={"filter"} onClick={() => setOpen(!open)}>Filter</GenericButton>
             <GenericButton type={"add"} onClick={() => setOpenModal(true)}>Buyurtma qoshish</GenericButton>
         </Breadcrumb>
-        <GenericTable open={open} headCells={headCells} rows={rows}>
+        <GenericTable open={open} headCells={headCells} rows={state} spinner={spinner}>
             <div style={{width: "200px"}}>
                 <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
-                       color={"var(--secondaryColor)"}>Statusi</Title>
-                <GenericSelect data={data}/>
-            </div>
-            <div style={{width: "200px"}}>
-                <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
-                       color={"var(--secondaryColor)"}>Guruh</Title>
-                <GenericSelect data={data}/>
+                       color={"var(--secondaryColor)"}>Full name</Title>
+                <GenericInput $width={198} $fontSize={16} defaultValue={filter.name} width={500}
+                              onChange={onChangeFilter} name={"name"}/>
+
             </div>
             <div style={{width: "200px"}}>
                 <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
                        color={"var(--secondaryColor)"}>Kurslar</Title>
-                <GenericSelect data={data}/>
+                <GenericSelect data={groups} onChange={onChangeFilter} name={"field"}/>
             </div>
+
+            <div style={{width: "200px"}}>
+                <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
+                       color={"var(--secondaryColor)"}>Qo’shilgan sana</Title>
+                <LocalizationProvider dateAdapter={AdapterMoment} sx={{color: "red"}}>
+                    <DatePicker
+                        value={moment(filter.date)}
+                        onChange={onSelectDate}
+                        slotProps={{textField: {size: "small"}}}
+                    />
+                </LocalizationProvider>
+            </div>
+
             <div style={{width: "200px"}}>
                 <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
                        color={"var(--secondaryColor)"}>Moderator</Title>
-                <GenericSelect data={data}/>
+                <GenericInput $width={198} $fontSize={16} defaultValue={filter.group} width={500}
+                              onChange={onChangeFilter} name={"admin"}/>
             </div>
+
         </GenericTable>
     </Container>;
 }

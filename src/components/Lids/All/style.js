@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import edit from "../../../assets/icons/edit.svg?react"
+import del from "../../../assets/icons/delete.svg?react"
 
 const Container = styled.div``
 
@@ -14,7 +15,7 @@ Icons.Edit = styled(edit)`
     height: 34px;
     padding: 6px;
 `
-Icons.Move = styled(edit)`
+Icons.Move = styled(del)`
     width: 34px;
     height: 34px;
     padding: 6px;
