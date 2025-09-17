@@ -91,12 +91,12 @@ const AllLidsModal = (props) => {
 
         try {
             if (state.id) {
-                await request(`/tabs/students/id/${state.id}`, {
+                await request(`/tabs/lids/id/${state.id}`, {
                     method: "PUT",
                     body: state,
                 });
             } else {
-                await request("/tabs/students", {
+                await request("/tabs/lids", {
                     method: "POST",
                     body: {...state, id: crypto.randomUUID()},
                 });

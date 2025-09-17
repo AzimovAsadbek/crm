@@ -1,33 +1,63 @@
 import {Container, Icons} from "./style.js";
 import GenericTable from "../../Generics/Table";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Breadcrumb from "../../Generics/Breadcrumb/index.jsx";
 import GenericButton from "../../Generics/Button/index.jsx";
 import GenericSelect from "../../Generics/GenericSelect/GenericSelect.jsx";
 import * as React from "react";
-import AllLidsModal from "./modal.jsx";
 import Title from "../../Generics/Title/index.jsx";
+import useFetch from "../../../hooks/useFetch.jsx";
+import {AllLidsContext} from "../../../context/lids/index.jsx";
+import GenericInput from "../../Generics/Input/index.jsx";
+import useQuery from "../../../hooks/useQuery.js";
+import useReplace from "../../../hooks/useReplace.js";
+import {useNavigate} from "react-router-dom";
+import {groups} from "../../../utils/group.js";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import moment from "moment";
-
+import AllLidsModal from "./modal.jsx";
 
 const FirstClass = () => {
     const [open, setOpen] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [modalData, setModalData] = useState({});
+    const [spinner, setSpinner] = useState(false);
+    const navigate = useNavigate();
+    const [state, dispatch] = useContext(AllLidsContext);
+
+    const request = useFetch()
+    const query = useQuery();
+    const [filter, setFilter] = useState({
+        name: query.get("name") || "",
+        group: query.get("group") || "",
+        field: query.get("field") || "",
+        days: query.get("days") || "",
+        admin: query.get("admin") || "",
+        date: query.get("date") || "",
+
+    });
+
+
+    const getStudent = async (query = "") => {
+        setSpinner(true);
+        let res = await request(`/tabs/lids${query}`);
+
+        dispatch({type: "get", payload: res})
+        setSpinner(false);
+    }
+
+    useEffect(() => {
+        getStudent()
+    }, [])
 
     const onEdit = (e, row) => {
         e.stopPropagation();
         setOpenModal(!openModal);
         setModalData(row)
     }
-    const onMove = (e) => {
-        e.stopPropagation();
-        console.log("move")
 
-    }
 
     const headCells = [
         {
@@ -36,16 +66,21 @@ const FirstClass = () => {
         },
         {
             id: 'phone',
-            label: 'Telefon raqam',
+            label: 'Telefon raqami',
         },
         {
-            id: 'addedDate',
+            id: 'added_date',
             label: 'Qo’shilgan sana',
         },
         {
-            id: 'course',
-            label: 'Kurs',
+            id: 'field',
+            label: 'Guruh / Fan',
         },
+        {
+            id: 'days',
+            label: 'Dars kuni vaqti',
+        },
+
         {
             id: 'admin',
             label: 'Moderator',
@@ -55,97 +90,78 @@ const FirstClass = () => {
             label: "",
             render: (row) => <Icons>
                 <Icons.Edit onClick={(e) => onEdit(e, row)}/>
-                <Icons.Move onClick={onMove}/>
             </Icons>
         }
     ];
 
-    const rows = [
-        {
-            id: 1,
-            name: "Javlon Javliyev",
-            group: "FrontEnd",
-            addedDate: "12.08.2025",
-            admin: "webbrain admin",
-            course: "FrontEnd",
-            phone: "+998 99 999 99 99"
-        },
-        {
-            id: 2,
-            name: "Mutalxojayev Avazbek",
-            group: "FrontEnd",
-            addedDate: "14.08.2025",
-            admin: "webbrain admin",
-            course: "FrontEnd",
-            phone: "+998 99 999 99 99"
 
-        },
-        {
-            id: 3,
-            name: "Xusanboyev Asliddin",
-            group: "FrontEnd",
-            addedDate: "14.08.2025",
-            admin: "webbrain admin",
-            course: "BackEnd",
-            phone: "+998 99 999 99 99"
-
-        },
-        {
-            id: 4,
-            name: "Javlon Javliyev",
-            group: "FrontEnd",
-            addedDate: "12.08.2025",
-            admin: "webbrain admin",
-            course: "FrontEnd",
-            phone: "+998 99 999 99 99"
-        }
-    ]
-
-    const data = [
-        {value: "uzbek", title: "Uzbek"},
-        {value: "russian", title: "English"},
-        {value: "english", title: "Russian"},
-    ]
-    const onToggleModal = () => {
+    const onToggleModal = (callback) => {
         setOpenModal(!openModal);
         setModalData(null)
+        callback && callback()
     }
-    const onSave = () => {
+
+
+    const onChangeFilter = (e) => {
+        let {name, value} = e.target;
+        setFilter({...filter, [name]: value});
+        const query = useReplace(value, name)
+        navigate(`${location.pathname}${query}`, {state: {parent: "Lidlar", child: "Barcha Lidlar"}})
+        getStudent(`/search${query}`)
+    }
+
+    const onSelectDate = (event) => {
+        const time = moment(event)
+        let date = `${time.month() + 1}/${time.date()}/${time.year()}`
+        if (!time.date() && !time.month() && !time.year()) date = null
+        setFilter({...filter, date: date});
+        const query = useReplace(date, "added_date")
+        navigate(`${location.pathname}${query}`, {state: {parent: "Lidlar", child: "Barcha Lidlar"}})
+        getStudent(`/search${query}`)
     }
 
     return <Container>
-        <AllLidsModal open={openModal} onClose={onToggleModal} onSave={onSave} data={modalData}/>
+        <AllLidsModal open={openModal} onClose={onToggleModal} data={modalData} onUpload={getStudent}
+                      len={state?.length || 1}/>
+
         <Breadcrumb>
             <GenericButton type={"import"}>Import</GenericButton>
             <GenericButton type={"filter"} onClick={() => setOpen(!open)}>Filter</GenericButton>
         </Breadcrumb>
-        <GenericTable open={open} headCells={headCells} rows={rows}>
+        <GenericTable open={open} headCells={headCells} rows={state} spinner={spinner}>
             <div style={{width: "200px"}}>
                 <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
-                       color={"var(--secondaryColor)"}>Sana</Title>
+                       color={"var(--secondaryColor)"}>Full name</Title>
+                <GenericInput $width={198} $fontSize={16} defaultValue={filter.name} width={500}
+                              onChange={onChangeFilter} name={"name"}/>
+
+            </div>
+            <div style={{width: "200px"}}>
+                <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
+                       color={"var(--secondaryColor)"}>Kurslar</Title>
+                <GenericSelect data={groups} onChange={onChangeFilter} name={"field"}/>
+            </div>
+
+            <div style={{width: "200px"}}>
+                <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
+                       color={"var(--secondaryColor)"}>Qo’shilgan sana</Title>
                 <LocalizationProvider dateAdapter={AdapterMoment} sx={{color: "red"}}>
                     <DatePicker
-                        defaultValue={moment()}
-
+                        defaultValue={moment(filter.date) || ""}
+                        onChange={onSelectDate}
                         slotProps={{textField: {size: "small"}}}
+
                     />
                 </LocalizationProvider>
             </div>
-            <div style={{width: "200px"}}>
-                <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
-                       color={"var(--secondaryColor)"}>Kurs</Title>
-                <GenericSelect data={data}/>
-            </div>
-            <div style={{width: "200px"}}>
-                <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
-                       color={"var(--secondaryColor)"}>Telefon raqam</Title>
-                <GenericSelect data={data}/>
-            </div>
+
             <div style={{width: "200px"}}>
                 <Title $font_size={14} $line_height={20} $mb={8} $mt={-20}
                        color={"var(--secondaryColor)"}>Moderator</Title>
-                <GenericSelect data={data}/>
+                <GenericInput $width={198} $fontSize={16} defaultValue={filter.group} width={500}
+                              onChange={onChangeFilter} name={"admin"}/>
             </div>
+
         </GenericTable>
     </Container>;
 }

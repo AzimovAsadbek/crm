@@ -42,7 +42,7 @@ const AllLids = () => {
 
     const getStudent = async (query = "") => {
         setSpinner(true);
-        let res = await request(`/tabs/students${query}`);
+        let res = await request(`/tabs/lids${query}`);
 
         dispatch({type: "get", payload: res})
         setSpinner(false);
@@ -60,14 +60,13 @@ const AllLids = () => {
     const onMove = async (e, row) => {
         e.stopPropagation();
         setSpinner(true);
-        (await request)(`/tabs/students/id/${row.id}`, {
+        (await request)(`/tabs/lids/id/${row.id}`, {
             method: "DELETE"
         }).then(v => {
             getStudent();
         }).catch(error => {
             console.error("Xato yuz berdi:", error.message);
         });
-
     }
 
     const headCells = [

@@ -1,15 +1,15 @@
-import GenericModal from "../../Generics/Modal/index.jsx";
-import Title from "../../Generics/Title/index.jsx";
-import GenericInput from "../../Generics/Input/index.jsx";
-import GenericSelect from "../../Generics/GenericSelect/GenericSelect.jsx";
-import useFetch from "../../../hooks/useFetch.jsx";
+import GenericModal from "../Generics/Modal/index.jsx";
+import Title from "../Generics/Title/index.jsx";
+import GenericInput from "../Generics/Input/index.jsx";
+import GenericSelect from "../Generics/GenericSelect/GenericSelect.jsx";
+import useFetch from "../../hooks/useFetch.jsx";
 import {useCallback, useEffect, useState} from "react";
 import moment from "moment";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import * as React from "react";
-import {groups} from "../../../utils/group.js";
+import {groups} from "../../utils/group.js";
 
 const initialState = {
     added_date: "",
@@ -35,13 +35,16 @@ const formFields = [
     {label: "Ismingiz", name: "name", type: "text", required: true},
     {label: "Familiyangiz", name: "surname", type: "text", required: true},
     {label: "Telefon raqamingiz", name: "phone", type: "text", required: true},
+    {label: "Ota-onangiz ismi", name: "parents", type: "text", required: true},
     {label: "Yo'nalishni tanlang", name: "field", type: "select", options: groups, required: true},
+    {label: "Guruh nomi", name: "group", type: "text", required: true},
+    {label: "Dars vaqti (12:00 - 14:00)", name: "time", type: "text", required: true},
     {label: "Kunni tanlang (Dushanba, Chorshanba, Juma)", name: "days", type: "text", required: true},
     {label: "Qo'shilgan sana", name: "added_date", type: "date", required: true},
     {label: "Moderator ismi", name: "admin", type: "text", required: true},
 ];
 
-const FirstClassModal = (props) => {
+const StudentsModal = (props) => {
     const {data} = props
     const request = useFetch();
     const [errors, setErrors] = useState(null);
@@ -165,4 +168,4 @@ const FirstClassModal = (props) => {
         </GenericModal>
     );
 }
-export default FirstClassModal;
+export default StudentsModal;
