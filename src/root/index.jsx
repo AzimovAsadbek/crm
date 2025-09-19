@@ -45,7 +45,7 @@ const Root = () => {
                     })}
                 </Route>
 
-                <Route path={"/guruhlar/guruhlar/checkin"} element={<CheckIn/>}/>
+                <Route path={"/guruhlar/guruhlar/checkin/:id"} element={<CheckIn/>}/>
                 {sidebar.map(parent => {
                     const Element = parent.element
                     if (parent?.children?.length) {

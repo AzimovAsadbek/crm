@@ -1,6 +1,6 @@
 import {Container, Icons} from "./style.js";
 import GenericTable from "../../Generics/Table";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Breadcrumb from "../../Generics/Breadcrumb/index.jsx";
 import * as React from "react";
 import AllLidsModal from "./modal.jsx";
@@ -10,76 +10,71 @@ import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import moment from "moment";
 import students from "../../../mock/students.js";
 import Satatus from "./satus.jsx";
+import {useNavigate, useParams} from "react-router-dom";
+import {GroupContext} from "../../../context/groups/index.jsx";
+import useFetch from "../../../hooks/useFetch.jsx";
+
+const headCells = [
+    {
+        id: 'name',
+        label: 'Name',
+    },
+    {
+        id: 'phone',
+        label: 'Phone',
+    },
+
+
+];
 
 
 const CheckIn = () => {
-    const [open, setOpen] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [modalData, setModalData] = useState({});
-    const [rows, setRows] = useState(students);
+    const [rows, setRows] = useState([]);
+    const {id} = useParams();
+    const [spinner, setSpinner] = useState(false);
+    const [groups] = useContext(GroupContext);
+    const request = useFetch()
+    const navigate = useNavigate()
+    const [cell, setCell] = useState([]);
 
 
-    const headCells = [
-        {
-            id: 'name',
-            label: 'Name',
-        },
-        {
-            id: 'phone',
-            label: 'Phone',
-        },
-        {
-            id: '16-08',
-            label: '16-08',
-            render(row) {
-                return <Satatus value={row[this?.id]}/>
-            },
-            align: 'center',
-        },
-        {
-            id: '17-08',
-            label: '17-08',
-            render(row) {
-                return <Satatus value={row[this?.id]}/>
-            },
-            align: 'center',
+    const getData = async (query = "") => {
+        let temp = []
+        setSpinner(true);
+        let res = await request(`/tabs/${id}`);
+        console.log(res)
+        Object.entries(res[0])?.map(([key, v]) => {
+            if (parseInt(key))
+                temp = [...temp, {
+                    id: key,
+                    label: key,
+                    align: "center",
+                    render(row) {
+                        return <Satatus value={row[key]} reload={getData} label={key} id={row.id} path={id}/>
+                    },
+                }
+                ]
+        })
+        setCell([...headCells, ...temp])
+        setRows([...res])
+        setSpinner(false);
+    }
 
-        },
-        {
-            id: '18-08',
-            label: '18-08',
-            render(row) {
-                return <Satatus value={row[this?.id]}/>
-            },
-            align: 'center',
-        },
-
-        {
-            id: '19-08',
-            label: '19-08',
-            render(row) {
-                return <Satatus value={row[this?.id]}/>
-            },
-            align: 'center',
-        },
-
-    ];
+    useEffect(() => {
+        if (groups.find((v) => v.title === id)) getData()
+        else navigate("/guruhlar/guruhlar")
+    }, [])
 
 
-    const data = [
-        {value: "uzbek", title: "Uzbek"},
-        {value: "russian", title: "English"},
-        {value: "english", title: "Russian"},
-    ]
     const onToggleModal = () => {
         setOpenModal(!openModal);
         setModalData(null)
     }
-    const onSave = () => {
-    }
 
     return <Container>
-        <AllLidsModal open={openModal} onClose={onToggleModal} onSave={onSave} data={modalData}/>
+        <AllLidsModal onClose={onToggleModal} data={modalData}/>
         <Breadcrumb>
             <LocalizationProvider dateAdapter={AdapterMoment} sx={{color: "red"}}>
                 <DatePicker
@@ -89,7 +84,7 @@ const CheckIn = () => {
                 />
             </LocalizationProvider>
         </Breadcrumb>
-        <GenericTable checkbox={false} open={open} headCells={headCells} rows={rows}/>
+        <GenericTable checkbox={false} open={open} headCells={cell} rows={rows} spinner={spinner}/>
     </Container>;
 }
 

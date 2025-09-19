@@ -103,7 +103,7 @@ const Sidebar = () => {
                                                 <ChildWrapper
                                                     $active={open.includes(parent?.id) ? "true" : ""}
                                                     $activepath={
-                                                        location.pathname.includes(child.path.split("/")[2]) ? "true" : ""
+                                                        location.pathname.split("/")[2] === child.path.split("/")[2] ? "true" : ""
                                                     }
                                                 >
                                                     <ChildTitle>
