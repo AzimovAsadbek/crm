@@ -11,6 +11,7 @@ import Paper from '@mui/material/Paper';
 import Title from "../../../Generics/Title/index.jsx";
 import {Dot, Section, TimelineWrapper, Wrapper} from "./style.js";
 import {Icons} from "../style.js";
+import Spinner from "../../../Generics/Spinner/index.jsx";
 
 
 function Row(props) {
@@ -26,17 +27,17 @@ function Row(props) {
                         return <TableCell component="th" scope="row"
                                           sx={{cursor: 'pointer', color: "#253E5F", fontSize: "16px", fontWeight: 600}}
                                           key={v.id}>
-                            {v?.render ? v.render() : row[v.id]}
+                            {v?.render ? v.render(row) : row[v.id]}
                         </TableCell>
                     })
                 }
             </TableRow>
             <TableRow>
-                <TableCell style={{paddingBottom: 0, paddingTop: 0}} colSpan={6}>
+                <TableCell style={{paddingBottom: 0, paddingTop: 0}} align={"center"} colSpan={6}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box sx={{margin: 1}}>
 
-                            <Table size="small" aria-label="purchases">
+                            {row?.groups.length ? <Table size="small" aria-label="purchases">
 
                                 <TableBody>
                                     {row?.groups?.map((rw) => {
@@ -59,7 +60,8 @@ function Row(props) {
                                                                 $line_height={20}
                                                                 type={"bold"}
                                                                 color={rw?.started ? "#52C41A" : "#FAAD14"}>
-                                                                {rw?.started ? "Active" : "Soon"}</Title>
+                                                                {rw?.field}
+                                                            </Title>
                                                         </Section>
                                                     </Wrapper>
                                                 </TableCell>
@@ -72,10 +74,10 @@ function Row(props) {
                                                 <TableCell sx={{flex: 2, border: 0}}>
                                                     <Wrapper>
                                                         <TimelineWrapper $bgcolor={"#1890FF"} $mb={"8px"}>
-                                                            {rw?.timeline}
+                                                            {rw?.days}
                                                         </TimelineWrapper>
                                                         <TimelineWrapper $bgcolor={"#91D5FF"}>
-                                                            {rw?.time}
+                                                            {rw?.start_time} - {rw?.end_time}
                                                         </TimelineWrapper>
                                                     </Wrapper>
                                                 </TableCell>
@@ -83,7 +85,7 @@ function Row(props) {
                                                     <Wrapper>
                                                         <Title $line_height={20}>O'qituvchilar</Title>
                                                         <Title color={"#929FAF"}
-                                                               $line_height={24} $ml={75}>{rw?.students?.length}+</Title>
+                                                               $line_height={24} $ml={75}>{rw?.mentors}+</Title>
                                                     </Wrapper>
                                                 </TableCell>
                                                 <TableCell align={"right"} sx={{border: 0}}>
@@ -93,7 +95,7 @@ function Row(props) {
                                         }
                                     )}
                                 </TableBody>
-                            </Table>
+                            </Table> : "No data"}
                         </Box>
                     </Collapse>
                 </TableCell>
@@ -103,9 +105,11 @@ function Row(props) {
 }
 
 
-export default function CollapsibleTable({headCell, rows}) {
+export default function CollapsibleTable({headCell, rows, spinner}) {
     return (
         <TableContainer component={Paper}>
+            <Spinner spinner={spinner}/>
+
             <Table aria-label="collapsible table">
                 <TableHead>
                     <TableRow>

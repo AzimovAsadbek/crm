@@ -6,27 +6,77 @@ import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import {ModalInput, Section, SelectWrapper, Wrap} from "./style.js";
 import Checkbox from "@mui/material/Checkbox";
+import useFetch from "../../../hooks/useFetch.jsx";
+import {useCallback, useEffect, useState} from "react";
+import * as React from "react";
 
-const AllLidsModal = (props) => {
+const CategoryModal = (props) => {
     const {data} = props
+    const request = useFetch();
+    const [errors, setErrors] = useState(null);
+    const [state, setState] = useState({})
 
-    const yonlaishlar = data && [
-        {
-            title: "FrontEnd", value: "FrontEnd",
-        },
-        {
-            title: "BackEnd", value: "BackEnd",
-        },
-        {
-            title: "Mobile", value: "Mobile",
+    useEffect(() => {
+        if (data) {
+            setState({...state, ...data})
         }
-    ]
+    }, [data]);
+    const onClose = () => {
+        props?.onClose(() => {
+            setState({})
+            setErrors(null);
+        });
+    }
+    const onChangeData = (e) => {
+        const {name, value} = e.target;
+        setState((prev) => ({...prev, [name]: name === "status" ? value.toUpperCase() : value}));
+        setErrors((prev) => ({...prev, [name]: null}));
+    }
+
+
+    const validateFields = useCallback(() => {
+        const newErrors = {};
+        !state?.title ? newErrors.title = "Kurs yo'nalishi" : ""
+        setErrors(newErrors);
+        return state?.title;
+    }, [state]);
+
+    const onSave = async () => {
+        if (!validateFields()) return;
+
+        try {
+            if (state.id) {
+                await request(`/tabs/category/id/${state.id}`, {
+                    method: "PUT",
+                    body: {...state, category: state?.title?.toLowerCase()},
+                });
+            } else {
+                await request("/tabs/category", {
+                    method: "POST",
+                    body: {...state, id: crypto.randomUUID(), category: state?.title?.toLowerCase()},
+                });
+            }
+            props.onUpload();
+            onClose();
+        } catch (err) {
+            setErrors({general: "Failed to save data. Please try again."});
+        }
+    };
+
     return (
-        <GenericModal {...props}>
-            {/*<Title type={"bold"} $font_size={18}>Kurs qo'shish</Title>*/}
+        <GenericModal {...props} onClose={onClose} onSave={onSave}>
+            <Title type={"bold"} $font_size={18}>Yo'nalish qo'shish</Title>
+            {errors?.general && <div style={{color: "red", marginBottom: 8}}>{errors?.general}</div>}
+
+
             <Title $font_size={16} $line_height={24} $mb={8} color={"var(--secondaryColor)"} $mt={16}>Kursning
-                yo'nalishi</Title>
-            <GenericInput $width={500} $fontSize={16} defaultValue={data?.name}/>
+                yo'nalishi <span style={{color: "red"}}>*</span></Title>
+
+            <GenericInput $width={500} $fontSize={16} defaultValue={state?.title} name={"title"} onChange={onChangeData}
+                          required={true}/>
+            {errors && errors?.title &&
+                <div style={{color: "red", fontSize: 12, marginTop: 4}}>{errors?.title} is required</div>}
+
 
             <Title $font_size={16} $line_height={24} $mb={8} color={"var(--secondaryColor)"} $mt={16}>Kursning
                 nomi</Title>
@@ -86,4 +136,4 @@ const AllLidsModal = (props) => {
         </GenericModal>
     );
 }
-export default AllLidsModal;
+export default CategoryModal;

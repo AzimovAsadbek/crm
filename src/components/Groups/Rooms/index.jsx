@@ -1,37 +1,76 @@
-import {Container, Icons} from "./style.js";
+import {Container, Icons, TimeWrapper} from "./style.js";
 import GenericTable from "../../Generics/Table";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Breadcrumb from "../../Generics/Breadcrumb/index.jsx";
 import GenericButton from "../../Generics/Button/index.jsx";
 import AllLidsModal from "./modal.jsx";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
-import Title from "../../Generics/Title/index.jsx";
+import {useNavigate} from "react-router-dom";
+import useFetch from "../../../hooks/useFetch.jsx";
+import {RoomsContext} from "../../../context/rooms/index.jsx";
+import ModalCustom from "../../Generics/ModalCustom/index.jsx";
+import {groups} from "../../../utils/group.js";
 
 
 const Rooms = () => {
     const [openModal, setOpenModal] = useState(false);
     const [modalData, setModalData] = useState({});
+    const [spinner, setSpinner] = useState(false);
+    const navigate = useNavigate();
+    const [state, dispatch] = useContext(RoomsContext);
+    const request = useFetch()
+
+    const getData = async () => {
+        setSpinner(true);
+        let res = await request(`/tabs/rooms`);
+
+        dispatch({type: "get", payload: res})
+        setSpinner(false);
+    }
+    useEffect(() => {
+        getData()
+    }, [])
+
 
     const onEdit = (e, row) => {
         e.stopPropagation();
         setOpenModal(!openModal);
         setModalData(row)
     }
-    const onMove = (e) => {
-        e.stopPropagation();
-        console.log("move")
 
+    const onMove = async (e, row) => {
+        e.stopPropagation();
+        setSpinner(true);
+        (await request)(`/tabs/rooms/id/${row.id}`, {
+            method: "DELETE"
+        }).then(v => {
+            getData();
+        }).catch(error => {
+            console.error("Xato yuz berdi:", error.message);
+        });
     }
+
 
     const headCells = [
         {
-            id: 'room',
+            id: 'name',
             label: 'Xona',
         },
         {
             id: 'capacity',
             label: "O'rinlar",
+        },
+        {
+            id: 'free_times',
+            label: 'Free times',
+            render: (row) => <div>
+                {
+                    row?.free_times?.split(", ").map((v, i) => {
+                        return <TimeWrapper key={i}>{v}</TimeWrapper>
+                    })
+                }
+            </div>
         },
         {
             id: 'wifi',
@@ -42,8 +81,8 @@ const Rooms = () => {
             label: 'Monitor',
         },
         {
-            id: 'blackboard',
-            label: 'Blackboard',
+            id: 'white_board',
+            label: 'Whiteboard',
         },
         {
             id: 'status',
@@ -54,67 +93,41 @@ const Rooms = () => {
             label: "",
             render: (row) => <Icons>
                 <Icons.Edit onClick={(e) => onEdit(e, row)}/>
+                <Icons.Move onClick={(e) => onMove(e, row)}/>
             </Icons>
         }
     ];
 
-    const rows = [
-        {
-            id: 1,
-            room: "FrontEnd",
-            capacity: 15,
-            wifi: "bor",
-            monitor: "bor",
-            blackboard: "bor",
-            status: "FrontEnd",
-        },
-        {
-            id: 2,
-            room: "FrontEnd",
-            capacity: 10,
-            wifi: "bor",
-            monitor: "yoq",
-            blackboard: "bor",
-            status: "FrontEnd",
-
-        },
-        {
-            id: 3,
-            room: "FrontEnd",
-            capacity: 20,
-            wifi: "yoq",
-            monitor: "bor",
-            blackboard: "bor",
-            status: "FrontEnd",
-
-        },
-        {
-            id: 4,
-            room: "FrontEnd",
-            capacity: 18,
-            wifi: "bor",
-            monitor: "bor",
-            blackboard: "bor",
-            status: "FrontEnd",
-
-
-        }
-    ]
-
-    const onToggleModal = () => {
+    const onToggleModal = (callback) => {
         setOpenModal(!openModal);
         setModalData(null)
-    }
-    const onSave = () => {
+        callback && callback()
     }
 
+    const bool = [
+        {value: "select", title: "Select",},
+        {value: "true", title: "True",},
+        {value: "false", title: "False",},
+    ]
+    const formFields = [
+        {label: "Xona nomi", name: "name", type: "text", required: true},
+        {label: "O'rinlar", name: "capacity", type: "text", required: true},
+        {label: "Bo'sh vaqti", name: "free_times", type: "text", required: true},
+        {label: "Monitor", name: "monitor", type: "select", options: bool, required: true},
+        {label: "Whiteboard", name: "white_board", type: "select", options: bool, required: true},
+        {label: "Wifi", name: "wifi", type: "select", options: bool, required: true},
+        {label: "Status", name: "status", type: "select", required: true, options: bool},
+    ];
     return <Container>
-        <AllLidsModal open={openModal} onClose={onToggleModal} onSave={onSave} data={modalData}/>
+        <ModalCustom onUpload={getData} tabname={"rooms"} formFields={formFields} title={"Xona qo'shish"}
+                     open={openModal}
+                     onClose={onToggleModal}
+                     data={modalData}/>
         <Breadcrumb>
             <GenericButton type={"add"} onClick={() => setOpenModal(true)} $bgcolor={"#A0D911"}>Xona
                 qoshish</GenericButton>
         </Breadcrumb>
-        <GenericTable headCells={headCells} rows={rows} checkbox={false}/>
+        <GenericTable spinner={spinner} headCells={headCells} rows={state} checkbox={false}/>
     </Container>;
 }
 

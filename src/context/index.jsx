@@ -5,6 +5,7 @@ import MoliyaProvider from "./moliya/index.jsx";
 import MediaProvider from "./media/index.jsx";
 import AllLidsProvider from "./lids/index.jsx";
 import GroupProvider from "./groups/index.jsx";
+import RoomsProvider from "./rooms/index.jsx";
 
 const providers = [
     UserProvider,
@@ -13,7 +14,8 @@ const providers = [
     MoliyaProvider,
     MediaProvider,
     AllLidsProvider,
-    GroupProvider
+    GroupProvider,
+    RoomsProvider,
 ]
 const ContextProvider = ({children}) => {
     return providers.reduceRight((account, Provider) => <Provider>{account}</Provider>, children);

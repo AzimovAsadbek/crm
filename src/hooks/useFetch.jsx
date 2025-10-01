@@ -1,6 +1,5 @@
 const useFetch = () => {
     const baseURL = import.meta.env.VITE_BASE_URL;
-    const apiKey = import.meta.env.VITE_API_KEY;
     return async (url = "", options = {}) => {
         let res = await fetch(baseURL + url, {
             method: options.method || "GET",

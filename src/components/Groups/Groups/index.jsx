@@ -7,9 +7,7 @@ import * as React from "react";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
-import {useNavigate} from "react-router-dom";
 import useFetch from "../../../hooks/useFetch.jsx";
-import useQuery from "../../../hooks/useQuery.js";
 import {GroupContext} from "../../../context/groups/index.jsx";
 import GroupsModal from "./modal.jsx";
 
