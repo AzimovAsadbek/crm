@@ -1,7 +1,7 @@
 import {createContext, useReducer} from "react";
 import {initialState, reducer} from "./reducer.js";
 
-export const MediaContext = createContext(null);
+export const MediaContext = createContext([]);
 
 const MediaProvider = ({children}) => {
     const [state, dispatch] = useReducer(reducer, initialState)
