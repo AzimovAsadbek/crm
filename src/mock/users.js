@@ -1,0 +1,55 @@
+// Users/Employees data
+export const users = [
+    {
+        id: "1",
+        name: "Qosimov",
+        surname: "Bekmirza",
+        phone: "+998 99 999 99 99",
+        email: "qosimov@webbrain.uz",
+        role: "Manager",
+        filial: "Chilonzor",
+        status: "active",
+    },
+    {
+        id: "2",
+        name: "Sherali",
+        surname: "Jo'rayev",
+        phone: "+998 99 888 88 88",
+        email: "sherali@webbrain.uz",
+        role: "O'qituvchi",
+        filial: "Ganga",
+        status: "active",
+    },
+    {
+        id: "3",
+        name: "Shermatov",
+        surname: "Gulmat",
+        phone: "+998 99 777 77 77",
+        email: "shermatov@webbrain.uz",
+        role: "O'qituvchi",
+        filial: "Ganga",
+        status: "active",
+    },
+    {
+        id: "4",
+        name: "Aliyev",
+        surname: "Abdulkadir",
+        phone: "+998 99 666 66 66",
+        email: "aliyev@webbrain.uz",
+        role: "HR",
+        filial: "Chilonzor",
+        status: "active",
+    },
+    {
+        id: "5",
+        name: "Rahimova",
+        surname: "Dilnoza",
+        phone: "+998 99 555 55 55",
+        email: "rahimova@webbrain.uz",
+        role: "Administrator",
+        filial: "Chilonzor",
+        status: "active",
+    },
+];
+
+export default users;

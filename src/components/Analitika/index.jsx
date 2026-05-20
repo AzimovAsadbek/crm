@@ -19,15 +19,16 @@ import {AnalyticsContext} from "../../context/analytics/index.jsx";
 import {MediaContext} from "../../context/media/index.jsx";
 import {EmailContext} from "../../context/email/index.jsx";
 import Spinner from "../Generics/Spinner/index.jsx";
+import useFetch from "../../hooks/useFetch.jsx";
 
 const Analitika = () => {
     const [loading, setLoading] = useState(true);
     const [loadedCount, setLoadedCount] = useState(0);
 
-    let url = import.meta.env.VITE_BASE_URL
     let [state, dispatch] = useContext(AnalyticsContext);
     let [mediaState, mediaDispatch] = useContext(MediaContext);
     let [email] = useContext(EmailContext)
+    const request = useFetch();
 
     const onLoaded = () => {
         setLoadedCount(prev => {
@@ -41,18 +42,26 @@ const Analitika = () => {
         });
     };
 
-    const getAnalytics = () => {
-        fetch(`${url}/tabs/analytics_page`)
-            .then(res => res.json())
-            .then(([res]) => dispatch({type: "get", payload: res}))
-            .finally(onLoaded);
+    const getAnalytics = async () => {
+        try {
+            let res = await request(`/tabs/analytics_page`);
+            dispatch({type: "get", payload: res?.[0] || res});
+        } catch (error) {
+            console.error("Analytics error:", error);
+        } finally {
+            onLoaded();
+        }
     };
 
-    const getMedia = () => {
-        fetch(`${url}/tabs/media`)
-            .then(res => res.json())
-            .then(res => mediaDispatch({type: "get", payload: res}))
-            .finally(onLoaded);
+    const getMedia = async () => {
+        try {
+            let res = await request(`/tabs/media`);
+            mediaDispatch({type: "get", payload: res || []});
+        } catch (error) {
+            console.error("Media error:", error);
+        } finally {
+            onLoaded();
+        }
     };
 
     useEffect(() => {

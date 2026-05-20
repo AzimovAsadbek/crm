@@ -1,13 +1,15 @@
 import {Info, Container, Img, Section, Title} from "./style";
 import {useContext, useEffect} from "react";
 import {EmailContext} from "../../../context/email/index.jsx";
+import useFetch from "../../../hooks/useFetch.jsx";
 
 const Email = () => {
 
-    let url = import.meta.env.VITE_BASE_URL
     let [state, dispatch] = useContext(EmailContext);
+    const request = useFetch();
+
     useEffect(() => {
-        fetch(`${url}/tabs/emails`).then(res => res.json()).then((res) => dispatch({
+        request(`/tabs/emails`).then((res) => dispatch({
             type: "get",
             payload: res
         }))

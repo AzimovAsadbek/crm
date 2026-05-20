@@ -4,16 +4,18 @@ import useDate, {days, months} from "../../../hooks/useDate.js";
 import {useContext, useEffect, useState} from "react";
 import {Section} from "../style.js";
 import {MoliyaContext} from "../../../context/moliya/index.jsx";
+import useFetch from "../../../hooks/useFetch.jsx";
 
 const Moliya = () => {
     const date = useDate()
     const [dateCount, setDateCount] = useState(0)
     const [day, setday] = useState(new Date())
     const [data, setData] = useState({})
-    let url = import.meta.env.VITE_BASE_URL
     let [state, dispatch] = useContext(MoliyaContext);
+    const request = useFetch();
+
     useEffect(() => {
-        fetch(`${url}/tabs/moliya`).then(res => res.json()).then((res) => {
+        request(`/tabs/moliya`).then((res) => {
             const d = new Date().getDate();
             setData(res.filter(v => v.today === `${d}`)[0])
             return dispatch({
@@ -59,7 +61,7 @@ const Moliya = () => {
             <Title $font_size={12} $line_height={20}
                    color={"var(--secondaryColor)"}>{day.getDate()}-{months[day.getMonth()].full} {day.getFullYear()}</Title>
             <Secton>
-                <Title $font_size={32} $line_height={40} type={"bold"}>{data?.students}</Title>
+                <Title $font_size={32} $line_height={40} type={"bold"}>{data?.amount || 0}</Title>
                 <ArrowUp/>
                 <Title $font_size={24} $line_height={32} color={"#52C41A"}>+22%</Title>
             </Secton>
@@ -68,16 +70,16 @@ const Moliya = () => {
             <Top>
                 <Section>
                     <Dot $first={`true`}/>
-                    <Title $font_size={14} $line_height={20}>Talabalar</Title>
+                    <Title $font_size={14} $line_height={20}>Kirim</Title>
                 </Section>
-                <Title $font_size={14} $line_height={20}>{data?.students}</Title>
+                <Title $font_size={14} $line_height={20}>{data?.type === 'kirim' ? data?.amount : 0}</Title>
             </Top>
             <Top>
                 <Section>
                     <Dot/>
-                    <Title $font_size={14} $line_height={20}>Darsliklar sotuvi</Title>
+                    <Title $font_size={14} $line_height={20}>Chiqim</Title>
                 </Section>
-                <Title $font_size={14} $line_height={20}>{data?.video}</Title>
+                <Title $font_size={14} $line_height={20}>{data?.type === 'chiqim' ? data?.amount : 0}</Title>
             </Top>
         </div>
     </Container>
